@@ -1,14 +1,27 @@
 const principles = [
-  "Usage signals, not surveillance.",
-  "Shared service, not a black box.",
-  "Evidence, not self-reported claims.",
+  "Usage data, not personal data.",
+  "One shared service, not a black box.",
+  "Verified numbers, not self-reported.",
 ];
 
 const metrics = [
   ["01", "Reach", "Page views, privacy-respecting unique visitors, referrers, and session duration."],
   ["02", "Experience", "Bounce rate, country-level geography, browser, and device breakdown."],
   ["03", "Reliability", "Request volume, success and error rates, plus p50 and p95 API latency."],
-  ["04", "Stewardship", "Global comparison for designated operators, with tenant boundaries kept intact."],
+  ["04", "Stewardship", "Global comparison for designated operators, tenant boundaries intact."],
+];
+
+const scfEvidence = [
+  {
+    title: "Lendwise · SCF #45",
+    description: "Dashboards, APIs, data pipelines, and open-source delivery.",
+    href: "https://communityfund.stellar.org/submissions/recmK8tdxCKvSU3GS",
+  },
+  {
+    title: "MUWPAY · SCF #35",
+    description: "Full-stack engineering contribution to an awarded Stellar SDK.",
+    href: "https://communityfund.stellar.org/submissions/recmvpMI0UZ6fy1ab",
+  },
 ];
 
 function Brand() {
@@ -34,6 +47,7 @@ export default function Home() {
           <a href="#approach">Approach</a>
           <a href="#architecture">Architecture</a>
           <a href="#metrics">Metrics</a>
+          <a href="#team">Team</a>
         </nav>
         <a className="headerLink" href="#brief">Project brief <span>↗</span></a>
       </header>
@@ -41,10 +55,10 @@ export default function Home() {
       <main id="top">
         <section className="hero container">
           <div className="heroCopy">
-            <Eyebrow>Proposed shared infrastructure for Stellar projects</Eyebrow>
-            <h1>Make ecosystem use<br /><em>visible.</em> Keep people private.</h1>
+            <Eyebrow>Shared infrastructure for the Stellar ecosystem</Eyebrow>
+            <h1>Make real usage<br /><em>visible.</em> Keep users private.</h1>
             <p className="lede">
-              Calistar is a proposed open-source service for privacy-first web and API analytics across projects building on Stellar.
+              Calistar is a proposed open-source service that measures web and API usage across Stellar projects, without collecting personal data.
             </p>
             <div className="heroActions">
               <a className="button buttonPrimary" href="#approach">Explore Calistar <span>↓</span></a>
@@ -75,7 +89,7 @@ export default function Home() {
         <section className="container section" id="approach">
           <div className="sectionHeading">
             <Eyebrow>One trusted view</Eyebrow>
-            <h2>Useful adoption data<br />without extra burden.</h2>
+            <h2>Real adoption data,<br />without the burden.</h2>
           </div>
           <div className="approachGrid">
             <article className="approachCard webCard">
@@ -87,8 +101,8 @@ export default function Home() {
                   <svg viewBox="0 0 280 110" preserveAspectRatio="none"><path d="M0,78 C25,78 28,56 48,61 S74,86 94,53 S121,42 142,51 S170,24 190,35 S217,17 237,29 S261,7 280,12" /></svg>
                 </div>
               </div>
-              <h3>Web analytics</h3>
-              <p>Version-pinned frontend instrumentation for page views, visitors, referrers, session quality, country-level geography, and device context.</p>
+              <h3>Web analytics · Umami</h3>
+              <p>Version-pinned frontend script: page views, visitors, referrers, session duration, bounce rate, country, browser, device.</p>
             </article>
 
             <article className="approachCard apiCard">
@@ -100,14 +114,14 @@ export default function Home() {
                 <div><b>POST</b><span>/collect</span><em>202</em></div>
               </div>
               <h3>API analytics</h3>
-              <p>Dual-exported OpenTelemetry metrics become useful request volume, status distribution, and latency percentiles. Traces, spans, and deep logs stay out.</p>
+              <p>Dual-exported OpenTelemetry metrics become request volume, status distribution, and latency percentiles. Traces, spans, and deep logs stay out.</p>
             </article>
 
             <article className="approachCard scfCard">
               <div className="cardNumber">03</div>
               <div className="compareBars" aria-hidden="true"><span /><span /><span /><span /></div>
               <h3>Shared ecosystem view</h3>
-              <p>Projects see their own data. Designated SCF operators compare standardized metrics across enrolled Stellar projects.</p>
+              <p>Projects see only their own data. Designated SCF operators compare standardized metrics across enrolled projects.</p>
             </article>
           </div>
         </section>
@@ -116,8 +130,9 @@ export default function Home() {
           <div className="container section architecture">
             <div className="sectionHeading narrow">
               <Eyebrow>Designed for handover</Eyebrow>
-              <h2>Infrastructure<br />community can run.</h2>
-              <p className="sectionCopy">Calistar is proposed as one open-source monorepo: application code, infrastructure-as-code, documentation, runbooks, tests, and operational artifacts.</p>
+              <h2>Infrastructure<br />the community can run.</h2>
+              <p className="sectionCopy">Code, infrastructure, docs, and runbooks, all open source and in one place.</p>
+              <p className="stackLine">NEXT.JS · TYPESCRIPT · UMAMI · OPENTELEMETRY · POSTGRESQL</p>
             </div>
             <div className="diagram" aria-label="Architecture diagram from tenant properties to protected metrics and separate tenant and SCF views">
               <div className="diagramColumn sources">
@@ -156,10 +171,44 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="container teamSection" id="team">
+          <div className="teamIntro">
+            <Eyebrow>Project lead & delivery evidence</Eyebrow>
+            <h2>Built by a known<br />SCF contributor.</h2>
+            <p>
+              <strong>Cédric Magne</strong> is a full-stack engineer with prior
+              Stellar Community Fund delivery experience. Calistar draws on work
+              across dashboards, APIs, data pipelines, and open-source delivery.
+            </p>
+            <div className="teamLinks">
+              <a className="button buttonPrimary" href="https://github.com/cedricmagne" target="_blank" rel="noreferrer">
+                GitHub profile <span>↗</span>
+              </a>
+              <a className="button buttonQuiet" href="https://www.linkedin.com/in/cedricmagne/" target="_blank" rel="noreferrer">
+                LinkedIn profile <span>↗</span>
+              </a>
+              <a className="button buttonQuiet" href="/docs">Read technical notes</a>
+            </div>
+          </div>
+          <div className="evidenceList">
+            <p className="evidenceLabel">SCF DELIVERY HISTORY</p>
+            {scfEvidence.map((item) => (
+              <a className="evidenceCard" href={item.href} target="_blank" rel="noreferrer" key={item.title}>
+                <span>{item.title}</span>
+                <p>{item.description}</p>
+                <b>View awarded project ↗</b>
+              </a>
+            ))}
+            <p className="teamNote">
+              Lendwise SCF #45 and MUWPAY SCF #35 each completed all three grant tranches.
+            </p>
+          </div>
+        </section>
+
         <section className="container privacyPanel" id="brief">
           <div>
             <Eyebrow>Privacy is architecture</Eyebrow>
-            <h2>Measure services.<br />Minimize personal data.</h2>
+            <h2>Measure services.<br />Not people.</h2>
           </div>
           <div className="privacyList">
             <p><i>✓</i>Frontend-only web collection</p>
@@ -174,7 +223,7 @@ export default function Home() {
       <footer className="container siteFooter">
         <a href="#top"><Brand /></a>
         <p>Privacy-first web and API analytics for Stellar ecosystem projects.</p>
-        <p>Proposed open-source infrastructure · 2026</p>
+        <p><a href="/docs">Technical notes</a> · Proposed open-source infrastructure · 2026</p>
       </footer>
     </>
   );
