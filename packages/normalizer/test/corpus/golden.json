@@ -1,0 +1,880 @@
+{
+ "sdk": "@stellar/stellar-sdk 17.4.0",
+ "cases": [
+  {
+   "kind": "encodeEd25519SecretSeed",
+   "input": "/v1/items/SAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR727UC",
+   "expected": "/v1/items/:redacted"
+  },
+  {
+   "kind": "encodeEd25519SecretSeed",
+   "input": "/v1/items/SAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR727UC/payments/?cursor=now",
+   "expected": "/v1/items/:redacted/payments"
+  },
+  {
+   "kind": "encodeEd25519SecretSeed",
+   "input": "/v1/items/SBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQZV6",
+   "expected": "/v1/items/:redacted"
+  },
+  {
+   "kind": "encodeEd25519SecretSeed",
+   "input": "/v1/items/SBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQZV6/payments/?cursor=now",
+   "expected": "/v1/items/:redacted/payments"
+  },
+  {
+   "kind": "encodeEd25519SecretSeed",
+   "input": "/v1/items/SBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH2Q7N",
+   "expected": "/v1/items/:redacted"
+  },
+  {
+   "kind": "encodeEd25519SecretSeed",
+   "input": "/v1/items/SBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH2Q7N/payments/?cursor=now",
+   "expected": "/v1/items/:redacted/payments"
+  },
+  {
+   "kind": "encodeEd25519SecretSeed",
+   "input": "/v1/items/SBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNLPPR",
+   "expected": "/v1/items/:redacted"
+  },
+  {
+   "kind": "encodeEd25519SecretSeed",
+   "input": "/v1/items/SBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNLPPR/payments/?cursor=now",
+   "expected": "/v1/items/:redacted/payments"
+  },
+  {
+   "kind": "encodeEd25519SecretSeed",
+   "input": "/v1/items/SCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOTEY2",
+   "expected": "/v1/items/:redacted"
+  },
+  {
+   "kind": "encodeEd25519SecretSeed",
+   "input": "/v1/items/SCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOTEY2/payments/?cursor=now",
+   "expected": "/v1/items/:redacted/payments"
+  },
+  {
+   "kind": "encodeMed25519PublicKey",
+   "input": "/v1/items/MAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR73O4AOCKHIUSYLFOUW",
+   "expected": "/v1/items/:muxed"
+  },
+  {
+   "kind": "encodeMed25519PublicKey",
+   "input": "/v1/items/MAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR73O4AOCKHIUSYLFOUW/payments/?cursor=now",
+   "expected": "/v1/items/:muxed/payments"
+  },
+  {
+   "kind": "encodeMed25519PublicKey",
+   "input": "/v1/items/MBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQOF7VZNISKF7652OE",
+   "expected": "/v1/items/:muxed"
+  },
+  {
+   "kind": "encodeMed25519PublicKey",
+   "input": "/v1/items/MBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQOF7VZNISKF7652OE/payments/?cursor=now",
+   "expected": "/v1/items/:muxed/payments"
+  },
+  {
+   "kind": "encodeMed25519PublicKey",
+   "input": "/v1/items/MBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3GZPCFCN73R2IDJSI",
+   "expected": "/v1/items/:muxed"
+  },
+  {
+   "kind": "encodeMed25519PublicKey",
+   "input": "/v1/items/MBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3GZPCFCN73R2IDJSI/payments/?cursor=now",
+   "expected": "/v1/items/:muxed/payments"
+  },
+  {
+   "kind": "encodeMed25519PublicKey",
+   "input": "/v1/items/MBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNL5SWBDJEHZHNPX5P2",
+   "expected": "/v1/items/:muxed"
+  },
+  {
+   "kind": "encodeMed25519PublicKey",
+   "input": "/v1/items/MBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNL5SWBDJEHZHNPX5P2/payments/?cursor=now",
+   "expected": "/v1/items/:muxed/payments"
+  },
+  {
+   "kind": "encodeMed25519PublicKey",
+   "input": "/v1/items/MCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSATPT7WXZSR3MZNCC",
+   "expected": "/v1/items/:muxed"
+  },
+  {
+   "kind": "encodeMed25519PublicKey",
+   "input": "/v1/items/MCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSATPT7WXZSR3MZNCC/payments/?cursor=now",
+   "expected": "/v1/items/:muxed/payments"
+  },
+  {
+   "kind": "encodeEd25519PublicKey",
+   "input": "/v1/items/GAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR733H5",
+   "expected": "/v1/items/:account"
+  },
+  {
+   "kind": "encodeEd25519PublicKey",
+   "input": "/v1/items/GAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR733H5/payments/?cursor=now",
+   "expected": "/v1/items/:account/payments"
+  },
+  {
+   "kind": "encodeEd25519PublicKey",
+   "input": "/v1/items/GBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FR5GB",
+   "expected": "/v1/items/:account"
+  },
+  {
+   "kind": "encodeEd25519PublicKey",
+   "input": "/v1/items/GBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FR5GB/payments/?cursor=now",
+   "expected": "/v1/items/:account/payments"
+  },
+  {
+   "kind": "encodeEd25519PublicKey",
+   "input": "/v1/items/GBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3UMS",
+   "expected": "/v1/items/:account"
+  },
+  {
+   "kind": "encodeEd25519PublicKey",
+   "input": "/v1/items/GBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3UMS/payments/?cursor=now",
+   "expected": "/v1/items/:account/payments"
+  },
+  {
+   "kind": "encodeEd25519PublicKey",
+   "input": "/v1/items/GBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNKL4O",
+   "expected": "/v1/items/:account"
+  },
+  {
+   "kind": "encodeEd25519PublicKey",
+   "input": "/v1/items/GBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNKL4O/payments/?cursor=now",
+   "expected": "/v1/items/:account/payments"
+  },
+  {
+   "kind": "encodeEd25519PublicKey",
+   "input": "/v1/items/GCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSALF",
+   "expected": "/v1/items/:account"
+  },
+  {
+   "kind": "encodeEd25519PublicKey",
+   "input": "/v1/items/GCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSALF/payments/?cursor=now",
+   "expected": "/v1/items/:account/payments"
+  },
+  {
+   "kind": "encodeContract",
+   "input": "/v1/items/CAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR727CE",
+   "expected": "/v1/items/:contract"
+  },
+  {
+   "kind": "encodeContract",
+   "input": "/v1/items/CAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR727CE/payments/?cursor=now",
+   "expected": "/v1/items/:contract/payments"
+  },
+  {
+   "kind": "encodeContract",
+   "input": "/v1/items/CBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQZDY",
+   "expected": "/v1/items/:contract"
+  },
+  {
+   "kind": "encodeContract",
+   "input": "/v1/items/CBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQZDY/payments/?cursor=now",
+   "expected": "/v1/items/:contract/payments"
+  },
+  {
+   "kind": "encodeContract",
+   "input": "/v1/items/CBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH2QJL",
+   "expected": "/v1/items/:contract"
+  },
+  {
+   "kind": "encodeContract",
+   "input": "/v1/items/CBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH2QJL/payments/?cursor=now",
+   "expected": "/v1/items/:contract/payments"
+  },
+  {
+   "kind": "encodeContract",
+   "input": "/v1/items/CBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNLPZX",
+   "expected": "/v1/items/:contract"
+  },
+  {
+   "kind": "encodeContract",
+   "input": "/v1/items/CBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNLPZX/payments/?cursor=now",
+   "expected": "/v1/items/:contract/payments"
+  },
+  {
+   "kind": "encodeContract",
+   "input": "/v1/items/CCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOTEO4",
+   "expected": "/v1/items/:contract"
+  },
+  {
+   "kind": "encodeContract",
+   "input": "/v1/items/CCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOTEO4/payments/?cursor=now",
+   "expected": "/v1/items/:contract/payments"
+  },
+  {
+   "kind": "encodeLiquidityPool",
+   "input": "/v1/items/LAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR72GIJ",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeLiquidityPool",
+   "input": "/v1/items/LAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR72GIJ/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeLiquidityPool",
+   "input": "/v1/items/LBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQAJV",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeLiquidityPool",
+   "input": "/v1/items/LBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQAJV/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeLiquidityPool",
+   "input": "/v1/items/LBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH2JDG",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeLiquidityPool",
+   "input": "/v1/items/LBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH2JDG/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeLiquidityPool",
+   "input": "/v1/items/LBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNLWT2",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeLiquidityPool",
+   "input": "/v1/items/LBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNLWT2/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeLiquidityPool",
+   "input": "/v1/items/LCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOT5ER",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeLiquidityPool",
+   "input": "/v1/items/LCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOT5ER/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeClaimableBalance",
+   "input": "/v1/items/BAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR73OZFSA",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeClaimableBalance",
+   "input": "/v1/items/BAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR73OZFSA/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeClaimableBalance",
+   "input": "/v1/items/BBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQOAR3Y",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeClaimableBalance",
+   "input": "/v1/items/BBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQOAR3Y/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeClaimableBalance",
+   "input": "/v1/items/BBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3GYOCQ",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeClaimableBalance",
+   "input": "/v1/items/BBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3GYOCQ/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeClaimableBalance",
+   "input": "/v1/items/BBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNL5VYQQ",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeClaimableBalance",
+   "input": "/v1/items/BBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNL5VYQQ/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeClaimableBalance",
+   "input": "/v1/items/BCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSATGJE",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeClaimableBalance",
+   "input": "/v1/items/BCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSATGJE/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodePreAuthTx",
+   "input": "/v1/items/TAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR72GVM",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodePreAuthTx",
+   "input": "/v1/items/TAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR72GVM/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodePreAuthTx",
+   "input": "/v1/items/TBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQAUQ",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodePreAuthTx",
+   "input": "/v1/items/TBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQAUQ/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodePreAuthTx",
+   "input": "/v1/items/TBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH2J6D",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodePreAuthTx",
+   "input": "/v1/items/TBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH2J6D/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodePreAuthTx",
+   "input": "/v1/items/TBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNLWO7",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodePreAuthTx",
+   "input": "/v1/items/TBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNLWO7/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodePreAuthTx",
+   "input": "/v1/items/TCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOT5ZU",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodePreAuthTx",
+   "input": "/v1/items/TCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOT5ZU/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeSha256Hash",
+   "input": "/v1/items/XAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR73CQV",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeSha256Hash",
+   "input": "/v1/items/XAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR73CQV/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeSha256Hash",
+   "input": "/v1/items/XBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FRERJ",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeSha256Hash",
+   "input": "/v1/items/XBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FRERJ/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeSha256Hash",
+   "input": "/v1/items/XBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3N32",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeSha256Hash",
+   "input": "/v1/items/XBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3N32/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeSha256Hash",
+   "input": "/v1/items/XBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNKSLG",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeSha256Hash",
+   "input": "/v1/items/XBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNKSLG/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeSha256Hash",
+   "input": "/v1/items/XCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSZ4N",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeSha256Hash",
+   "input": "/v1/items/XCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSZ4N/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeMuxedContract",
+   "input": "/v1/items/WAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR73O4AOCKHIUSYLHRWE",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeMuxedContract",
+   "input": "/v1/items/WAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR73O4AOCKHIUSYLHRWE/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeMuxedContract",
+   "input": "/v1/items/WBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQOF7VZNISKF767FMW",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeMuxedContract",
+   "input": "/v1/items/WBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQOF7VZNISKF767FMW/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeMuxedContract",
+   "input": "/v1/items/WBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3GZPCFCN73R2IBWQ2",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeMuxedContract",
+   "input": "/v1/items/WBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3GZPCFCN73R2IBWQ2/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeMuxedContract",
+   "input": "/v1/items/WBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNL5SWBDJEHZHNPVCNI",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeMuxedContract",
+   "input": "/v1/items/WBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNL5SWBDJEHZHNPVCNI/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeMuxedContract",
+   "input": "/v1/items/WCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSATPT7WXZSR3M3SAQ",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeMuxedContract",
+   "input": "/v1/items/WCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSATPT7WXZSR3M3SAQ/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeSignedPayload",
+   "input": "/v1/items/PBLHCPMJ27YLTHTAIMMA53DANOG4GFRJXLWJA5S5DZDRYGF4ZYDCKAAAAAAZMAAAABFL4",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeSignedPayload",
+   "input": "/v1/items/PBLHCPMJ27YLTHTAIMMA53DANOG4GFRJXLWJA5S5DZDRYGF4ZYDCKAAAAAAZMAAAABFL4/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeSignedPayload",
+   "input": "/v1/items/PDZFM6VZOGTKYHM3FX4AXZP4YKJCGD2TF2DT3EWL5LE37SDYDHHDKAAAAACFJZ4BSXDEO",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeSignedPayload",
+   "input": "/v1/items/PDZFM6VZOGTKYHM3FX4AXZP4YKJCGD2TF2DT3EWL5LE37SDYDHHDKAAAAACFJZ4BSXDEO/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeSignedPayload",
+   "input": "/v1/items/PDTY5DHMZLZLYPIAE65DPMS5CYD3GDAFAKO25HJWY2THPL2C5HLFUAAAAAOWSJ62AJT7XCRXOV7DTGS3P4V6A74Q2NDMLXVDJVYONCRCIYAAAABKVU",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeSignedPayload",
+   "input": "/v1/items/PDTY5DHMZLZLYPIAE65DPMS5CYD3GDAFAKO25HJWY2THPL2C5HLFUAAAAAOWSJ62AJT7XCRXOV7DTGS3P4V6A74Q2NDMLXVDJVYONCRCIYAAAABKVU/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeSignedPayload",
+   "input": "/v1/items/PDZF5ENZDIPJ5ODRG4AZ7ITKK75NXRAJBDSGGWO5R2FSR2U2NE2LSAAAAAQCIS6FVE3F5QZVIRZC7ICP2JYFEMVFH3V5JALC257FDYJJBJNTXG6UNY",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeSignedPayload",
+   "input": "/v1/items/PDZF5ENZDIPJ5ODRG4AZ7ITKK75NXRAJBDSGGWO5R2FSR2U2NE2LSAAAAAQCIS6FVE3F5QZVIRZC7ICP2JYFEMVFH3V5JALC257FDYJJBJNTXG6UNY/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "encodeSignedPayload",
+   "input": "/v1/items/PDTES2IUEBUN2CXA55L3GL2RPDTRQ375VMOZMSRU7WSFSJYB6KS5CAAAABAB2FVGYUK5MQFLGNZYLUTG4PHXFIIQWSPFYLESUBTOLHI4U7YXDVG6SVWU34O4P5REUEOLHUSXZIDB2NZMFHAGOJETM5ZTHURYHXQJORZSS",
+   "expected": "/v1/items/:strkey"
+  },
+  {
+   "kind": "encodeSignedPayload",
+   "input": "/v1/items/PDTES2IUEBUN2CXA55L3GL2RPDTRQ375VMOZMSRU7WSFSJYB6KS5CAAAABAB2FVGYUK5MQFLGNZYLUTG4PHXFIIQWSPFYLESUBTOLHI4U7YXDVG6SVWU34O4P5REUEOLHUSXZIDB2NZMFHAGOJETM5ZTHURYHXQJORZSS/payments/?cursor=now",
+   "expected": "/v1/items/:strkey/payments"
+  },
+  {
+   "kind": "secret seed in a segment",
+   "input": "/sign/secret=SAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR727UC",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed in a segment",
+   "input": "/sign/USDC:SAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR727UC",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed in a segment",
+   "input": "/sign/key%3DSAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR727UC",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed in a segment",
+   "input": "/sign/secret=SBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQZV6",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed in a segment",
+   "input": "/sign/USDC:SBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQZV6",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed in a segment",
+   "input": "/sign/key%3DSBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQZV6",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed in a segment",
+   "input": "/sign/secret=SBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH2Q7N",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed in a segment",
+   "input": "/sign/USDC:SBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH2Q7N",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed in a segment",
+   "input": "/sign/key%3DSBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH2Q7N",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed in a segment",
+   "input": "/sign/secret=SBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNLPPR",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed in a segment",
+   "input": "/sign/USDC:SBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNLPPR",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed in a segment",
+   "input": "/sign/key%3DSBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNLPPR",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed in a segment",
+   "input": "/sign/secret=SCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOTEY2",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed in a segment",
+   "input": "/sign/USDC:SCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOTEY2",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed in a segment",
+   "input": "/sign/key%3DSCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOTEY2",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/XLM-GAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR733H5",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/XLM:GAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR733H5/trades",
+   "expected": "/assets/:asset/trades"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/XLM%3AGAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR733H5",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/USDC-GAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR733H5",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/USDC:GAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR733H5/trades",
+   "expected": "/assets/:asset/trades"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/USDC%3AGAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR733H5",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/yXLM-GAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR733H5",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/yXLM:GAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR733H5/trades",
+   "expected": "/assets/:asset/trades"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/yXLM%3AGAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR733H5",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/AQUAnetwork1-GAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR733H5",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/AQUAnetwork1:GAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR733H5/trades",
+   "expected": "/assets/:asset/trades"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/AQUAnetwork1%3AGAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR733H5",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/XLM-GBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FR5GB",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/XLM:GBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FR5GB/trades",
+   "expected": "/assets/:asset/trades"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/XLM%3AGBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FR5GB",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/USDC-GBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FR5GB",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/USDC:GBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FR5GB/trades",
+   "expected": "/assets/:asset/trades"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/USDC%3AGBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FR5GB",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/yXLM-GBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FR5GB",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/yXLM:GBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FR5GB/trades",
+   "expected": "/assets/:asset/trades"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/yXLM%3AGBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FR5GB",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/AQUAnetwork1-GBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FR5GB",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/AQUAnetwork1:GBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FR5GB/trades",
+   "expected": "/assets/:asset/trades"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/AQUAnetwork1%3AGBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FR5GB",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/XLM-GBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3UMS",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/XLM:GBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3UMS/trades",
+   "expected": "/assets/:asset/trades"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/XLM%3AGBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3UMS",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/USDC-GBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3UMS",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/USDC:GBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3UMS/trades",
+   "expected": "/assets/:asset/trades"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/USDC%3AGBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3UMS",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/yXLM-GBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3UMS",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/yXLM:GBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3UMS/trades",
+   "expected": "/assets/:asset/trades"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/yXLM%3AGBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3UMS",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/AQUAnetwork1-GBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3UMS",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/AQUAnetwork1:GBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3UMS/trades",
+   "expected": "/assets/:asset/trades"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/AQUAnetwork1%3AGBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3UMS",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/XLM-GBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNKL4O",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/XLM:GBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNKL4O/trades",
+   "expected": "/assets/:asset/trades"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/XLM%3AGBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNKL4O",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/USDC-GBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNKL4O",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/USDC:GBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNKL4O/trades",
+   "expected": "/assets/:asset/trades"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/USDC%3AGBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNKL4O",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/yXLM-GBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNKL4O",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/yXLM:GBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNKL4O/trades",
+   "expected": "/assets/:asset/trades"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/yXLM%3AGBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNKL4O",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/AQUAnetwork1-GBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNKL4O",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/AQUAnetwork1:GBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNKL4O/trades",
+   "expected": "/assets/:asset/trades"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/AQUAnetwork1%3AGBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNKL4O",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/XLM-GCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSALF",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/XLM:GCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSALF/trades",
+   "expected": "/assets/:asset/trades"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/XLM%3AGCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSALF",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/USDC-GCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSALF",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/USDC:GCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSALF/trades",
+   "expected": "/assets/:asset/trades"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/USDC%3AGCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSALF",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/yXLM-GCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSALF",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/yXLM:GCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSALF/trades",
+   "expected": "/assets/:asset/trades"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/yXLM%3AGCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSALF",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/AQUAnetwork1-GCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSALF",
+   "expected": "/assets/:asset"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/AQUAnetwork1:GCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSALF/trades",
+   "expected": "/assets/:asset/trades"
+  },
+  {
+   "kind": "asset",
+   "input": "/assets/AQUAnetwork1%3AGCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSALF",
+   "expected": "/assets/:asset"
+  }
+ ]
+}

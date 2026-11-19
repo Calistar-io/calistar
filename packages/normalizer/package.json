@@ -1,0 +1,22 @@
+{
+  "name": "@calistar/normalizer",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "type": "module",
+  "description": "Path normalization for API routes: Stellar identifiers, UUIDs, hashes and IDs become placeholders before anything is stored.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "corpus": "node test/corpus/generate.ts"
+  },
+  "devDependencies": {
+    "@stellar/stellar-sdk": "17.4.0",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "5.1.1"
+  }
+}
