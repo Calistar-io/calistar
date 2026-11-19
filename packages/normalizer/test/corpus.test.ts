@@ -37,6 +37,27 @@ describe("Stellar corpus", () => {
   });
 });
 
+describe("nested percent-encoding", () => {
+  const seed = ENCODERS.encodeEd25519SecretSeed!.keys(1)[0]!;
+  /** Encodes the leading "S" `rounds` times: %53, %2553, %252553, ... */
+  const hidden = (rounds: number) => `%${"25".repeat(rounds - 1)}53${seed.slice(1)}`;
+
+  it.each([1, 2, 3, 4, 8, 15, 16, 17, 40])("redacts a seed encoded %i times", (rounds) => {
+    const out = normalizePath(`/sign/${hidden(rounds)}`);
+    expect(out).toBe("/sign/:redacted");
+  });
+
+  it("redacts a segment that is still encoded after the last round, whatever it holds", () => {
+    expect(normalizePath(`/a/%${"25".repeat(30)}41`)).toBe("/a/:redacted");
+  });
+
+  it("leaves an ordinary encoded segment alone", () => {
+    expect(normalizePath("/files/annual%20report")).toBe("/files/annual%20report");
+    expect(normalizePath("/files/100%25")).toBe("/files/100%25");
+    expect(normalizePath("/files/50%")).toBe("/files/50%");
+  });
+});
+
 describe("other identifiers", () => {
   it.each([
     ["/users/3f2b9c1e-8a7d-4c5b-9e6f-0a1b2c3d4e5f", "/users/:uuid"],

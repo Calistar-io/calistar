@@ -76,8 +76,11 @@ export const RULES: readonly Rule[] = [
   rule("Long segment", ":long", (s) => s.length > LONG_SEGMENT),
 ].map((r, i) => ({ ...r, order: i + 1 }));
 
-/** How many times a segment is decoded: `%2553` hides an `S` behind two rounds of encoding. */
-const MAX_DECODE_ROUNDS = 3;
+/**
+ * How many times a segment is decoded: `%2553` hides an `S` behind two rounds of encoding.
+ * A segment still encoded after that many rounds is redacted, never passed through.
+ */
+const MAX_DECODE_ROUNDS = 16;
 
 /**
  * Percent-decoding that never gives up on the whole segment. `decodeURIComponent` throws on one
@@ -94,19 +97,22 @@ function decodeOnce(text: string): string {
   });
 }
 
-function decode(segment: string): string {
+/** Decodes until nothing changes. `null` when the segment is still encoded after the last round. */
+function decode(segment: string): string | null {
   let text = segment;
   for (let round = 0; round < MAX_DECODE_ROUNDS; round++) {
     const next = decodeOnce(text);
-    if (next === text) break;
+    if (next === text) return text;
     text = next;
   }
-  return text;
+  return decodeOnce(text) === text ? text : null;
 }
 
 /** Normalizes one path segment: the placeholder of the first matching rule, or the segment unchanged. */
 export function normalizeSegment(segment: string): string {
   const decoded = decode(segment);
+  // Fail closed: nothing legitimate is encoded that deep, and the rules cannot see through it.
+  if (decoded === null) return ":redacted";
   const upper = decoded.toUpperCase();
   for (const r of RULES) {
     if (r.matches(decoded, upper)) return r.placeholder;
