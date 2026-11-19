@@ -50,6 +50,9 @@ services:
       PRIVATE_MODE: "1"
       DISABLE_TELEMETRY: "1"
       DISABLE_UPDATES: "1"
+      # The tracker script posts to this path, which the gateway serves. Umami rewrites its
+      # script at start to match.
+      COLLECT_API_ENDPOINT: /v1/e
     depends_on:
       postgres:
         condition: service_healthy
@@ -79,6 +82,33 @@ services:
         condition: service_healthy
       collector:
         condition: service_started
+    read_only: true
+
+  # ─── Tenant side: what a project runs. Not part of Calistar. ───────────────────────────────
+
+  example-api:
+    build:
+      context: ../..
+      dockerfile: examples/otel-node/Dockerfile
+    environment:
+      CALISTAR_OTLP_ENDPOINT: http://gateway:8080
+      # Local test token of tenant-a (its digest is in seed/tenants.json).
+      CALISTAR_INGEST_TOKEN: calistar-poc-token-tenant-a
+      EXPORT_INTERVAL_MS: "2000"
+    ports:
+      - "127.0.0.1:${EXAMPLE_API_PORT:-8090}:8090"
+    depends_on:
+      gateway:
+        condition: service_healthy
+
+  example-site:
+    # node:24-alpine
+    image: docker.io/library/node@sha256:116b800c3754b440ee0aa3ed2f20f5bf3d99a554bfd9adeea09ea8017f6e85f5
+    command: ["node", "/site/server.mjs"]
+    volumes:
+      - ../../examples/static-html:/site:ro
+    ports:
+      - "127.0.0.1:${EXAMPLE_SITE_PORT:-8091}:8091"
     read_only: true
 
 volumes:

@@ -1,0 +1,22 @@
+{
+  "name": "@calistar/example-otel-node",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "description": "Example API: a Node.js HTTP service that exports OpenTelemetry metrics, traces and logs to Calistar.",
+  "scripts": {
+    "start": "node --require ./src/telemetry.cjs src/server.cjs"
+  },
+  "dependencies": {
+    "@opentelemetry/api": "1.10.0",
+    "@opentelemetry/api-logs": "0.223.0",
+    "@opentelemetry/core": "3.0.0",
+    "@opentelemetry/exporter-logs-otlp-proto": "0.300.0",
+    "@opentelemetry/exporter-metrics-otlp-proto": "0.300.0",
+    "@opentelemetry/exporter-trace-otlp-proto": "0.300.0",
+    "@opentelemetry/instrumentation-http": "0.300.0",
+    "@opentelemetry/sdk-logs": "3.0.0",
+    "@opentelemetry/sdk-metrics": "3.0.0",
+    "@opentelemetry/sdk-node": "0.300.0"
+  }
+}

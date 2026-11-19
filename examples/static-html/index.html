@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Example site: static HTML</title>
+    <!--
+      On a real site this is one static tag, with the website ID given at enrollment:
+
+        <script defer src="https://<calistar host>/s/v0.js"
+                data-website-id="<website id>"
+                data-host-url="https://<calistar host>"></script>
+
+      This example builds the same tag from the address bar, so one file works for any website:
+        ?website=<website id>&host=<gateway origin>
+    -->
+    <script>
+      const params = new URLSearchParams(location.search);
+      const host = (params.get("host") || "http://localhost:8080").replace(/\/+$/, "");
+      const tag = document.createElement("script");
+      tag.defer = true;
+      tag.src = host + "/s/v0.js";
+      tag.dataset.websiteId = params.get("website") || "";
+      tag.dataset.hostUrl = host;
+      document.head.appendChild(tag);
+    </script>
+  </head>
+  <body>
+    <h1>Example site</h1>
+    <p>A static page that reports its page views to Calistar.</p>
+    <p><a href="about.html">About</a></p>
+  </body>
+</html>

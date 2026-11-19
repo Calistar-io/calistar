@@ -3,10 +3,9 @@ packages:
   - 'packages/*'
   - 'examples/*'
   - 'tests/*'
-# VitePress builds with esbuild, whose install script sets up its platform binary.
 allowBuilds:
+  # VitePress builds with esbuild, whose install script sets up its platform binary.
   esbuild: true
-minimumReleaseAgeExclude:
-  - '@vitest/mocker@5.1.1'
-  - '@vitest/spy@5.1.1'
-  - vitest@5.1.1
+  # Pulled in by the OpenTelemetry exporters of examples/otel-node. Its install script only
+  # checks versions: not needed, so not run.
+  protobufjs: false
