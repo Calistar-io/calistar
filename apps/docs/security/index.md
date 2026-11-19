@@ -68,4 +68,4 @@ The service has a single maintainer, so there is no second human reviewer. The c
 
 ## Reporting a vulnerability
 
-A security policy with a private reporting channel will be added to the repository when it becomes public.
+The [repository](https://github.com/Calistar-io/calistar) has no security policy yet. One will be added, with a private reporting channel.

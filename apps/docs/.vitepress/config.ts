@@ -88,6 +88,8 @@ export default defineConfig({
       },
     ],
 
+    socialLinks: [{ icon: 'github', link: 'https://github.com/Calistar-io/calistar' }],
+
     outline: { level: [2, 3], label: 'On this page' },
     search: { provider: 'local' },
 

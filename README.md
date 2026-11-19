@@ -34,3 +34,7 @@ To run one workspace only, add a filter: `pnpm dev --filter @calistar/landing`.
 `apps/landing` and `apps/docs` are two Vercel projects. The landing owns `calistar.io` and proxies `/docs` to the docs project (its domain is read from `DOCS_ORIGIN`) with a rewrite in `apps/landing/next.config.ts`, so the documentation is read at `calistar.io/docs`. Setup steps are in [apps/docs/README.md](apps/docs/README.md).
 
 The console does not exist yet and will not be hosted on Vercel. The landing redirects `/console` to it once `CONSOLE_URL` is set.
+
+## License
+
+[Apache License 2.0](LICENSE).

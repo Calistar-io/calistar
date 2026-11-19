@@ -1,6 +1,7 @@
 {
   "name": "calistar",
   "private": true,
+  "license": "Apache-2.0",
   "packageManager": "pnpm@12.5.1",
   "engines": {
     "node": ">=22"
