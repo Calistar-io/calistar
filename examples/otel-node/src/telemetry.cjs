@@ -30,6 +30,8 @@ const sdk = new NodeSDK({
     new HttpInstrumentation({
       // The exporters' own requests to Calistar are not part of the service's traffic.
       ignoreOutgoingRequestHook: (request) => String(request.path || "").startsWith("/v1/"),
+      // Neither are health checks.
+      ignoreIncomingRequestHook: (request) => request.url === "/health",
     }),
   ],
   metricReaders: [
