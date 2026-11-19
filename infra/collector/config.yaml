@@ -80,5 +80,8 @@ service:
       exporters: [nop]
     metrics:
       receivers: [otlp]
-      processors: [memory_limiter, filter/http_duration, cumulative_to_delta, attributes/tenant]
+      # The tenant is stamped before cumulative_to_delta: that processor keeps one state per
+      # stream, and a stream is identified by its attributes. Stamped after, two tenants sending
+      # the same stream would share a state.
+      processors: [memory_limiter, filter/http_duration, attributes/tenant, cumulative_to_delta]
       exporters: [otlp_http/writer]

@@ -27,6 +27,18 @@ const KNOWN_METHODS = new Set(["GET", "HEAD", "POST", "PUT", "DELETE", "CONNECT"
 /** Used when a data point carries no route and no path. */
 export const UNKNOWN_ROUTE = "/:unknown";
 
+/** A normalized route longer than this, or with more segments, is stored as one placeholder. */
+export const MAX_ROUTE_LENGTH = 256;
+export const MAX_ROUTE_SEGMENTS = 16;
+export const OVERSIZED_ROUTE = "/:long";
+
+/**
+ * Accepted age of a data point. Older or future points are refused, so a tenant cannot rewrite
+ * hours that are already reported, and a wrong clock cannot write far in the future.
+ */
+export const MAX_AGE_MS = 24 * 60 * 60 * 1000;
+export const MAX_FUTURE_MS = 10 * 60 * 1000;
+
 // ─── OTLP JSON, the part that is read ─────────────────────────────────────────────────────────
 
 interface AnyValue {
@@ -78,11 +90,19 @@ export interface Aggregation {
   skipped: Record<string, number>;
 }
 
-function attributeMap(attributes: KeyValue[] | undefined): Map<string, string> {
+/**
+ * Attributes of a data point, or `undefined` when a key appears twice. OTLP lets a list repeat a
+ * key, and two readers may then disagree on which value counts: the Collector could stamp one
+ * `tenant.id` while this code reads the other. A point with a repeated key is refused whole.
+ */
+function attributeMap(attributes: KeyValue[] | undefined): Map<string, string> | undefined {
   const map = new Map<string, string>();
+  const seen = new Set<string>();
   for (const { key, value } of attributes ?? []) {
+    if (typeof key !== "string" || seen.has(key)) return undefined;
+    seen.add(key);
     if (!value) continue;
-    if (value.stringValue !== undefined) map.set(key, value.stringValue);
+    if (value.stringValue !== undefined) map.set(key, String(value.stringValue));
     else if (value.intValue !== undefined) map.set(key, String(value.intValue));
     else if (value.doubleValue !== undefined) map.set(key, String(value.doubleValue));
   }
@@ -99,7 +119,9 @@ function route(attrs: Map<string, string>): string {
   const raw = attrs.get("http.route") ?? attrs.get("url.path") ?? attrs.get("http.target") ?? attrs.get("url.full") ?? attrs.get("http.url");
   if (raw === undefined || raw === "") return UNKNOWN_ROUTE;
   // A route set by the tenant goes through the rules too: a raw address is never kept.
-  return normalizePath(raw);
+  const normalized = normalizePath(raw);
+  if (normalized.length > MAX_ROUTE_LENGTH || normalized.split("/").length - 1 > MAX_ROUTE_SEGMENTS) return OVERSIZED_ROUTE;
+  return normalized;
 }
 
 function statusCode(attrs: Map<string, string>): number {
@@ -107,7 +129,8 @@ function statusCode(attrs: Map<string, string>): number {
   return Number.isInteger(code) && code >= 100 && code <= 599 ? code : 0;
 }
 
-function hourOf(timeUnixNano: string | number | undefined): string | undefined {
+/** Start of the hour of a data point, or `undefined` when its time is unreadable or outside the accepted window. */
+function hourOf(timeUnixNano: string | number | undefined, now: number): string | undefined {
   if (timeUnixNano === undefined) return undefined;
   let millis: number;
   try {
@@ -115,10 +138,16 @@ function hourOf(timeUnixNano: string | number | undefined): string | undefined {
   } catch {
     return undefined;
   }
-  if (!Number.isFinite(millis) || millis <= 0) return undefined;
+  if (!Number.isFinite(millis) || millis < now - MAX_AGE_MS || millis > now + MAX_FUTURE_MS) return undefined;
   const date = new Date(millis);
   date.setUTCMinutes(0, 0, 0);
   return date.toISOString();
+}
+
+/** A count as OTLP JSON carries it (a number, or a decimal string for 64-bit values). */
+function count(value: string | number | undefined): number | undefined {
+  const n = typeof value === "string" && /^\d+$/.test(value) ? Number(value) : value;
+  return typeof n === "number" && Number.isSafeInteger(n) && n >= 0 ? n : undefined;
 }
 
 /** Duration unit of a metric, as a factor to milliseconds. Legacy metrics are in milliseconds. */
@@ -132,7 +161,7 @@ function toMsFactor(metric: Metric, legacy: boolean): number {
  * Reduces one export to rows keyed by tenant, service, direction, method, route, status code and
  * hour. Data points with the same key are merged, so the result can be written in one statement.
  */
-export function aggregate(request: ExportMetricsRequest): Aggregation {
+export function aggregate(request: ExportMetricsRequest, now: number = Date.now()): Aggregation {
   const rows = new Map<string, MetricRow>();
   const skipped: Record<string, number> = {};
   const skip = (reason: string) => {
@@ -157,24 +186,50 @@ export function aggregate(request: ExportMetricsRequest): Aggregation {
 
         for (const point of metric.histogram.dataPoints ?? []) {
           const attrs = attributeMap(point.attributes);
+          if (!attrs) {
+            skip("repeated attribute key");
+            continue;
+          }
           const tenantId = attrs.get("tenant.id");
           const serviceId = attrs.get("calistar.service");
           if (!tenantId || !serviceId || tenantId === UNBOUND || serviceId === UNBOUND) {
             skip("no tenant bound by the gateway");
             continue;
           }
-          const hour = hourOf(point.timeUnixNano);
-          const count = Number(point.count ?? 0);
-          if (hour === undefined || !Number.isFinite(count) || count <= 0) {
-            skip("empty or undated data point");
+          const hour = hourOf(point.timeUnixNano, now);
+          if (hour === undefined) {
+            skip("time missing or outside the accepted window");
+            continue;
+          }
+
+          // Every number is checked before it can reach the database: a value PostgreSQL would
+          // refuse must not turn into an error the Collector retries forever.
+          const requestCount = count(point.count);
+          const bucketCounts = (point.bucketCounts ?? []).map(count);
+          const bounds = point.explicitBounds ?? [];
+          const sum = point.sum ?? 0;
+          const wellFormed =
+            requestCount !== undefined &&
+            bucketCounts.every((n) => n !== undefined) &&
+            bucketCounts.reduce<number>((total, n) => total + (n ?? 0), 0) === requestCount &&
+            bounds.every((bound) => typeof bound === "number" && Number.isFinite(bound)) &&
+            typeof sum === "number" &&
+            Number.isFinite(sum) &&
+            sum >= 0;
+          if (!wellFormed) {
+            skip("malformed histogram");
+            continue;
+          }
+          if (requestCount === 0) {
+            skip("empty data point");
             continue;
           }
 
           let buckets: number[];
           try {
             buckets = mapBuckets(
-              (point.explicitBounds ?? []).map((bound) => bound * factor),
-              (point.bucketCounts ?? []).map(Number),
+              bounds.map((bound) => bound * factor),
+              bucketCounts as number[],
             );
           } catch {
             skip("malformed histogram");
@@ -189,8 +244,8 @@ export function aggregate(request: ExportMetricsRequest): Aggregation {
             route: route(attrs),
             statusCode: statusCode(attrs),
             hour,
-            requestCount: count,
-            durationSumMs: (point.sum ?? 0) * factor,
+            requestCount,
+            durationSumMs: sum * factor,
             bucketCounts: buckets,
           };
           const key = [row.tenantId, row.serviceId, row.direction, row.method, row.route, row.statusCode, row.hour].join("\u0000");

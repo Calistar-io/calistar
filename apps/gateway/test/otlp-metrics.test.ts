@@ -1,12 +1,16 @@
 import { describe, expect, it } from "vitest";
 
 import { BUCKET_BOUNDS_MS, BUCKET_COUNT, mapBuckets } from "../src/histogram.ts";
-import { aggregate, UNKNOWN_ROUTE, type ExportMetricsRequest } from "../src/otlp-metrics.ts";
+import { aggregate as aggregateAt, MAX_AGE_MS, MAX_FUTURE_MS, OVERSIZED_ROUTE, UNKNOWN_ROUTE, type ExportMetricsRequest } from "../src/otlp-metrics.ts";
 
 const ACCOUNT = "GAUJMRUP23T5XGUUWR7UDPJFZQFB5YFCEVUPLD5XABUEHQT2V3VIJFMJ";
 const HOUR = "2026-11-19T10:00:00.000Z";
 /** 10:20:00 UTC of the same hour, in nanoseconds. */
 const TIME = String(BigInt(Date.parse("2026-11-19T10:20:00.000Z")) * 1_000_000n);
+
+/** "Now" for the tests: ten minutes after the data points. */
+const NOW = Date.parse("2026-11-19T10:30:00.000Z");
+const aggregate = (req: ExportMetricsRequest) => aggregateAt(req, NOW);
 
 const DEFAULT_BOUNDS_S = BUCKET_BOUNDS_MS.map((ms) => ms / 1000);
 
@@ -19,10 +23,13 @@ const attributes = (attrs: Attrs) =>
 
 interface PointInput {
   attrs: Attrs;
-  count: number;
+  count: number | string;
   sum: number;
-  buckets?: number[];
+  buckets?: (number | string)[];
   bounds?: number[];
+  time?: string;
+  /** Extra attribute entries appended as is, to build lists with repeated keys. */
+  rawAttributes?: { key: string; value: { stringValue: string } }[];
 }
 function request(name: string, points: PointInput[], extra: { temporality?: number; unit?: string } = {}): ExportMetricsRequest {
   return {
@@ -40,8 +47,8 @@ function request(name: string, points: PointInput[], extra: { temporality?: numb
                     const bounds = p.bounds ?? DEFAULT_BOUNDS_S;
                     const buckets = p.buckets ?? [p.count, ...new Array<number>(bounds.length).fill(0)];
                     return {
-                      attributes: attributes(p.attrs),
-                      timeUnixNano: TIME,
+                      attributes: [...attributes(p.attrs), ...(p.rawAttributes ?? [])],
+                      timeUnixNano: p.time ?? TIME,
                       count: String(p.count),
                       sum: p.sum,
                       bucketCounts: buckets.map(String),
@@ -177,5 +184,81 @@ describe("aggregate", () => {
     );
     expect(rows).toEqual([]);
     expect(skipped).toEqual({ "malformed histogram": 1 });
+  });
+});
+
+describe("aggregate, hostile or broken input", () => {
+  const ok = { ...bound, "http.request.method": "GET", "http.route": "/x", "http.response.status_code": 200 };
+
+  it("refuses a data point that repeats an attribute key, whichever value comes first", () => {
+    for (const [first, second] of [["tenant-a", "tenant-b"], ["tenant-b", "tenant-a"]]) {
+      const { rows, skipped } = aggregate(
+        request("http.server.request.duration", [
+          {
+            attrs: { "tenant.id": first!, "calistar.service": "api", "http.route": "/x" },
+            rawAttributes: [{ key: "tenant.id", value: { stringValue: second! } }],
+            count: 1,
+            sum: 0.01,
+          },
+        ]),
+      );
+      expect(rows).toEqual([]);
+      expect(skipped).toEqual({ "repeated attribute key": 1 });
+    }
+  });
+
+  it.each([
+    ["negative count", { count: -1, buckets: [-1] }],
+    ["fractional count", { count: 1.5, buckets: [1.5] }],
+    ["count beyond a safe integer", { count: "99999999999999999999", buckets: ["99999999999999999999"] }],
+    ["count that is not a number", { count: "1e3", buckets: ["1e3"] }],
+    ["buckets that do not add up to the count", { count: 5, buckets: [1] }],
+    ["negative sum", { count: 1, sum: -1 }],
+    ["infinite sum", { count: 1, sum: Number.POSITIVE_INFINITY }],
+  ])("skips a histogram with a %s", (_name, fields) => {
+    const base = { attrs: ok, count: 1, sum: 0.01 };
+    const point = { ...base, ...fields } as PointInput;
+    if (point.buckets) point.buckets = [...point.buckets, ...new Array<number>(DEFAULT_BOUNDS_S.length).fill(0)];
+    const { rows, skipped } = aggregate(request("http.server.request.duration", [point]));
+    expect(rows).toEqual([]);
+    expect(skipped).toEqual({ "malformed histogram": 1 });
+  });
+
+  it("refuses a data point too old, in the future, or with an unreadable time", () => {
+    const nanos = (ms: number) => String(BigInt(ms) * 1_000_000n);
+    const times = [nanos(NOW - MAX_AGE_MS - 1000), nanos(NOW + MAX_FUTURE_MS + 1000), "0", "not-a-time", "-5", "9".repeat(30)];
+    const { rows, skipped } = aggregate(request("http.server.request.duration", times.map((time) => ({ attrs: ok, count: 1, sum: 0.01, time }))));
+    expect(rows).toEqual([]);
+    expect(skipped).toEqual({ "time missing or outside the accepted window": times.length });
+  });
+
+  it("accepts a data point at the edges of the window", () => {
+    const nanos = (ms: number) => String(BigInt(ms) * 1_000_000n);
+    const { rows } = aggregate(
+      request("http.server.request.duration", [
+        { attrs: ok, count: 1, sum: 0.01, time: nanos(NOW - MAX_AGE_MS + 1000) },
+        { attrs: ok, count: 1, sum: 0.01, time: nanos(NOW + MAX_FUTURE_MS - 1000) },
+      ]),
+    );
+    expect(rows).toHaveLength(2);
+  });
+
+  it("stores an oversized route as one placeholder", () => {
+    const deep = "/" + new Array<string>(40).fill("a").join("/");
+    const wide = "/" + new Array<string>(10).fill("b-".repeat(30)).join("/");
+    const { rows } = aggregate(
+      request("http.server.request.duration", [
+        { attrs: { ...ok, "http.route": deep }, count: 1, sum: 0.01 },
+        { attrs: { ...ok, "http.route": wide }, count: 1, sum: 0.01 },
+      ]),
+    );
+    expect(rows).toHaveLength(1);
+    expect(rows[0]).toMatchObject({ route: OVERSIZED_ROUTE, requestCount: 2 });
+  });
+
+  it("skips an empty data point", () => {
+    const { rows, skipped } = aggregate(request("http.server.request.duration", [{ attrs: ok, count: 0, sum: 0 }]));
+    expect(rows).toEqual([]);
+    expect(skipped).toEqual({ "empty data point": 1 });
   });
 });

@@ -24,12 +24,27 @@ export function metricsWriter({ write }: MetricsWriterOptions): Hono {
       return c.json({ error: "body is not OTLP JSON" }, 400);
     }
 
-    const { rows, skipped } = aggregate(request);
+    let rows: MetricRow[];
+    let skipped: Record<string, number>;
+    try {
+      ({ rows, skipped } = aggregate(request));
+    } catch {
+      // A shape that is not an OTLP export. Not retryable.
+      return c.json({ error: "body is not an OTLP metrics export" }, 400);
+    }
     try {
       await write(rows);
     } catch (error) {
-      // Retryable: the Collector keeps the batch in its in-memory queue and sends it again.
-      console.error("write failed:", error instanceof Error ? error.message : error);
+      const message = error instanceof Error ? error.message : String(error);
+      // PostgreSQL classes 22 (data exception) and 23 (constraint violation): the batch itself is
+      // refused and would be refused again. Not retryable, or it would block the queue for good.
+      const code = (error as { code?: unknown }).code;
+      if (typeof code === "string" && /^2[23]/.test(code)) {
+        console.error("batch refused by the database, dropped:", code, message);
+        return c.json({ error: "batch refused" }, 400);
+      }
+      // Anything else is an outage. Retryable: the Collector keeps the batch in memory and resends it.
+      console.error("write failed:", message);
       return c.json({ error: "storage unavailable" }, 503);
     }
 
