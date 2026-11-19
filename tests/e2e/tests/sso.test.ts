@@ -56,6 +56,46 @@ describe("single sign-on", () => {
     await context.close();
   });
 
+  /**
+   * Not a claim: an observation. The reverse proxy will publish only the routes the dashboard
+   * needs, so this prints which ones a view-only user's browser calls on the main pages. The
+   * output feeds the allow-list.
+   */
+  it("records the routes the dashboard calls", async () => {
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    const origin = new URL(UMAMI_URL).origin;
+    const seen = new Map<string, Set<number>>();
+    page.on("response", (res) => {
+      const url = new URL(res.url());
+      if (url.origin !== origin) return;
+      const path = url.pathname
+        .replace(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi, "{id}")
+        .replace(/^\/_next\/.*/, "/_next/*")
+        .replace(/^\/intl\/.*/, "/intl/*")
+        .replace(/\.(png|svg|ico|json|webmanifest|woff2?)$/, ".<asset>");
+      const key = `${res.request().method()} ${path}`;
+      if (!seen.has(key)) seen.set(key, new Set());
+      seen.get(key)!.add(res.status());
+    });
+
+    const base = `/websites/${tenantA.websiteId}`;
+    await page.goto(`${UMAMI_URL}/sso?token=${encodeURIComponent(tokenA)}&url=${encodeURIComponent(base)}`);
+    await page.waitForURL(`**${base}**`);
+    await page.waitForLoadState("networkidle");
+    for (const tab of ["events", "sessions", "realtime", "compare"]) {
+      await page.goto(`${UMAMI_URL}${base}/${tab}`);
+      await page.waitForLoadState("networkidle").catch(() => undefined);
+    }
+    await page.goto(`${UMAMI_URL}/websites`);
+    await page.waitForLoadState("networkidle").catch(() => undefined);
+
+    const lines = [...seen.entries()].map(([key, statuses]) => `${key}  [${[...statuses].sort().join(", ")}]`).sort();
+    console.log(`Routes called by the dashboard (${lines.length}):\n${lines.join("\n")}`);
+    expect(lines.some((line) => line.startsWith("GET /api/websites/{id}"))).toBe(true);
+    await context.close();
+  });
+
   it("refuses a redirect target outside Umami", async () => {
     const context = await browser.newContext();
     const page = await context.newPage();
