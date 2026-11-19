@@ -9,7 +9,7 @@
 .vercel
 .env*
 !.env.example
-.claude
-.mcp.json
-AGENTS.md
-CLAUDE.md
+**/.claude
+**/.mcp.json
+**/AGENTS.md
+**/CLAUDE.md
