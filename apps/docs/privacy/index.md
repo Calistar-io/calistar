@@ -19,7 +19,7 @@ Calistar measures services, not people. Personal data is removed in memory at in
 | User agent | Reduced to browser, operating system and device class. The raw string is not stored. |
 | Visitor identity | A hash of the site, the truncated IP address, the user agent and a daily salt. The salt is destroyed every day and never backed up. The hash differs per site and per day, so there is no cross-site identifier. |
 | Device storage | None. No cookies, no `localStorage`, no `sessionStorage`. |
-| Location | Country only. |
+| Location | Country only. Umami ships a city-level database and would store region and city: the deployment replaces it with a country-level one. This replacement is planned, not tested yet. |
 | Traces, spans, logs | Dropped in memory. Never written. |
 | API metrics | Aggregates only. No request-level rows, no client IP addresses, no headers, no bodies. |
 | Access logs | Ingest-tier logs exclude IP addresses and paths, and are kept for a short time. |

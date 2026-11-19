@@ -75,6 +75,7 @@ export default defineConfig({
         text: 'Understand',
         items: [
           { text: 'Architecture overview', link: '/architecture/' },
+          { text: 'Technical architecture', link: '/architecture/technical-architecture' },
           { text: 'Proof of concept', link: '/architecture/proof-of-concept' },
         ],
       },

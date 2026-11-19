@@ -11,6 +11,8 @@ Calistar is a proposal answering the Stellar Community Fund RFP *Web and API Ana
 
 Calistar is a multi-tenant web and API analytics service for projects building on Stellar. It is designed to run as shared infrastructure for the Stellar Community Fund (SCF), and then to be handed to a community operator.
 
+This page is the overview. The full [technical architecture](/architecture/technical-architecture) maps every RFP requirement to a component, an approach and a verification method.
+
 ## At a glance
 
 - **Web analytics** come only from browsers, through a small version-pinned script. An unmodified, pinned release of [Umami](https://github.com/umami-software/umami) processes them and PostgreSQL stores them. No cookies, no device storage, no stored IP addresses.
