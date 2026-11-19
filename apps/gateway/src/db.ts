@@ -2,7 +2,7 @@ import { readdirSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import pg from "pg";
 
-import type { MetricRow } from "./otlp-metrics.ts";
+import { ROW_CEILING, type MetricRow } from "./otlp-metrics.ts";
 
 const MIGRATIONS_DIR = fileURLToPath(new URL("../migrations/", import.meta.url));
 const MIGRATION_LOCK = 727001;
@@ -50,6 +50,10 @@ const COLUMNS = 10;
 /**
  * Adds rows to the hourly aggregates. A row that exists is incremented: counts, duration and
  * each bucket are summed. `rows` must hold one row per key, which `aggregate` guarantees.
+ *
+ * Sums saturate at ROW_CEILING instead of overflowing: an overflow would make PostgreSQL refuse
+ * the whole statement, and one tenant's row could then drop the rows of every other tenant in
+ * the batch.
  */
 export async function upsertRows(pool: pg.Pool, rows: readonly MetricRow[]): Promise<void> {
   if (rows.length === 0) return;
@@ -75,10 +79,10 @@ export async function upsertRows(pool: pg.Pool, rows: readonly MetricRow[]): Pro
        (tenant_id, service_id, direction, method, route, status_code, hour, request_count, duration_sum_ms, bucket_counts)
      VALUES ${tuples.join(", ")}
      ON CONFLICT (tenant_id, service_id, direction, method, route, status_code, hour) DO UPDATE SET
-       request_count = m.request_count + EXCLUDED.request_count,
-       duration_sum_ms = m.duration_sum_ms + EXCLUDED.duration_sum_ms,
+       request_count = LEAST(m.request_count::numeric + EXCLUDED.request_count, ${ROW_CEILING})::bigint,
+       duration_sum_ms = LEAST(m.duration_sum_ms + EXCLUDED.duration_sum_ms, 1e18),
        bucket_counts = (
-         SELECT array_agg(a + b ORDER BY i)
+         SELECT array_agg(LEAST(COALESCE(a, 0)::numeric + COALESCE(b, 0), ${ROW_CEILING})::bigint ORDER BY i)
          FROM unnest(m.bucket_counts, EXCLUDED.bucket_counts) WITH ORDINALITY AS t (a, b, i)
        )`,
     values,

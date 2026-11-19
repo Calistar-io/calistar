@@ -39,6 +39,15 @@ export const OVERSIZED_ROUTE = "/:long";
 export const MAX_AGE_MS = 24 * 60 * 60 * 1000;
 export const MAX_FUTURE_MS = 10 * 60 * 1000;
 
+/**
+ * Ceilings on one data point: far above any real export interval, far below what a 64-bit
+ * column or a JavaScript number can hold. A stored row saturates at ROW_CEILING (see db.ts), so
+ * no sequence of accepted points can make the database refuse a batch.
+ */
+export const MAX_POINT_COUNT = 1e12;
+export const MAX_POINT_DURATION_MS = 1e15;
+export const ROW_CEILING = 9e15;
+
 // ─── OTLP JSON, the part that is read ─────────────────────────────────────────────────────────
 
 interface AnyValue {
@@ -213,9 +222,11 @@ export function aggregate(request: ExportMetricsRequest, now: number = Date.now(
             bucketCounts.every((n) => n !== undefined) &&
             bucketCounts.reduce<number>((total, n) => total + (n ?? 0), 0) === requestCount &&
             bounds.every((bound) => typeof bound === "number" && Number.isFinite(bound)) &&
+            requestCount <= MAX_POINT_COUNT &&
             typeof sum === "number" &&
             Number.isFinite(sum) &&
-            sum >= 0;
+            sum >= 0 &&
+            sum * factor <= MAX_POINT_DURATION_MS;
           if (!wellFormed) {
             skip("malformed histogram");
             continue;
@@ -250,6 +261,10 @@ export function aggregate(request: ExportMetricsRequest, now: number = Date.now(
           };
           const key = [row.tenantId, row.serviceId, row.direction, row.method, row.route, row.statusCode, row.hour].join("\u0000");
           const existing = rows.get(key);
+          if (existing && existing.requestCount + row.requestCount > ROW_CEILING) {
+            skip("row total over the ceiling");
+            continue;
+          }
           if (existing) {
             existing.requestCount += row.requestCount;
             existing.durationSumMs += row.durationSumMs;

@@ -37,6 +37,29 @@ services:
     # No volume and a read-only file system: the Collector cannot write anything to disk.
     read_only: true
 
+  umami:
+    # ghcr.io/umami-software/umami:3.5.0, unmodified
+    image: ghcr.io/umami-software/umami@sha256:b64f40400d77bcadd39cf5c62a1e368c99524ca442024f96e1133355a19a5dbc
+    environment:
+      DATABASE_URL: postgresql://umami:${UMAMI_DB_PASSWORD:-local-umami}@postgres:5432/umami
+      APP_SECRET: ${UMAMI_APP_SECRET:-local-only-app-secret-change-me-0000000000000000000000000000000000}
+      # The gateway sends a salt with every event; Umami mixes it into the visitor hash.
+      ENABLE_CLIENT_SALT: "1"
+      SALT_ROTATION: day
+      # No outbound call: no update check, no telemetry, no favicon lookup.
+      PRIVATE_MODE: "1"
+      DISABLE_TELEMETRY: "1"
+      DISABLE_UPDATES: "1"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    init: true
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:3000/api/heartbeat"]
+      interval: 5s
+      timeout: 5s
+      retries: 40
+
   gateway:
     build:
       context: ../..

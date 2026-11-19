@@ -213,6 +213,8 @@ describe("aggregate, hostile or broken input", () => {
     ["count beyond a safe integer", { count: "99999999999999999999", buckets: ["99999999999999999999"] }],
     ["count that is not a number", { count: "1e3", buckets: ["1e3"] }],
     ["buckets that do not add up to the count", { count: 5, buckets: [1] }],
+    ["count over the per-point ceiling", { count: 2e12, buckets: [2e12] }],
+    ["duration over the per-point ceiling", { count: 1, sum: 1e13 }],
     ["negative sum", { count: 1, sum: -1 }],
     ["infinite sum", { count: 1, sum: Number.POSITIVE_INFINITY }],
   ])("skips a histogram with a %s", (_name, fields) => {

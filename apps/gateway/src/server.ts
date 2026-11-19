@@ -1,6 +1,6 @@
 /**
  * Calistar gateway. Two listeners:
- * - public: ingestion from tenants (OTLP);
+ * - public: ingestion from tenants (OTLP for APIs, page views for web properties);
  * - private: the Collector's reduced output, on the internal network only.
  */
 import { serve } from "@hono/node-server";
@@ -11,6 +11,7 @@ import { createPool, migrate, upsertRows } from "./db.ts";
 import { metricsWriter } from "./metrics-writer.ts";
 import { otlpFront } from "./otlp-front.ts";
 import { TokenRegistry } from "./tenants.ts";
+import { webEvents } from "./web-events.ts";
 
 const config = loadConfig();
 const pool = createPool(config.databaseUrl);
@@ -22,6 +23,7 @@ if (applied.length > 0) console.log("migrations applied:", applied.join(", "));
 const publicApp = new Hono();
 publicApp.get("/healthz", (c) => c.text("ok"));
 publicApp.route("/", otlpFront({ tokens, collectorUrls: config.collectorUrls, maxBodyBytes: config.maxBodyBytes }));
+publicApp.route("/", webEvents({ umamiUrl: config.umamiUrl, trustedProxyHops: config.trustedProxyHops }));
 
 const privateApp = new Hono();
 privateApp.get("/healthz", async (c) => {

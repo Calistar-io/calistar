@@ -26,6 +26,8 @@ export interface Config {
   tenantsFile: string;
   /** Largest request body accepted on the public listener, in bytes. */
   maxBodyBytes: number;
+  /** Proxies in front of the gateway that append to X-Forwarded-For. 0: the TCP peer is the client. */
+  trustedProxyHops: number;
 }
 
 export function loadConfig(): Config {
@@ -37,5 +39,6 @@ export function loadConfig(): Config {
     umamiUrl: trimSlash(required("UMAMI_URL")),
     tenantsFile: required("TENANTS_FILE"),
     maxBodyBytes: 4 * 1024 * 1024,
+    trustedProxyHops: Math.max(0, Number.parseInt(process.env.TRUSTED_PROXY_HOPS ?? "0", 10) || 0),
   };
 }

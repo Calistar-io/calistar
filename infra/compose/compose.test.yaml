@@ -1,0 +1,22 @@
+# Additions for the stack tests. Use together with compose.yaml:
+#
+#   docker compose -f infra/compose/compose.yaml -f infra/compose/compose.test.yaml up -d --wait
+#
+# It publishes, on 127.0.0.1 only, what the tests must reach and the base file keeps private:
+# Umami (provisioning and sign-in, as the console will do from the private network) and
+# PostgreSQL (to check what was stored).
+
+services:
+  postgres:
+    ports:
+      - "127.0.0.1:${POSTGRES_TEST_PORT:-15432}:5432"
+
+  umami:
+    ports:
+      - "127.0.0.1:${UMAMI_TEST_PORT:-13000}:3000"
+
+  gateway:
+    environment:
+      # Tests act as the one proxy in front of the gateway: the address they put last in
+      # X-Forwarded-For is taken as the client address. Without this the client is the TCP peer.
+      TRUSTED_PROXY_HOPS: "1"
