@@ -104,7 +104,7 @@ The architecture document marked several points as assumptions. This is what was
 | Umami's API can provision a team, a website and a read-only user | **Confirmed, with one correction:** a team's website is created through the websites route, not through the team's. | Tests |
 | A token passed to `/sso` signs the browser in | **Confirmed.** The token has no expiry of its own. It stops working when the password changes, so rotation is what bounds its life. | Source, then tests |
 | A read-only user cannot change or erase its numbers | **Confirmed for the website, with one gap in Umami, closed by the proxy.** The user can create an API key, and that key keeps working after a password rotation. Umami's sign-in route also stays reachable when its sign-in page is disabled. The reverse proxy publishes neither. | Tests |
-| Umami can be published through a list of routes | **Confirmed.** The dashboard of a read-only user calls 15 read routes and one token check. The list was recorded from a browser session and is the proxy's allow-list. | Tests |
+| Umami can be published through a list of routes | **Confirmed.** The dashboard of a read-only user calls 14 read routes and one token check. The list was recorded from a browser session and is the proxy's allow-list. | Tests |
 | Upstream component names | **Changed.** The Collector's processor and exporter are now `cumulative_to_delta` and `otlp_http`. The latest Collector release with a published image is 0.165.0. | Running the image |
 | The Stellar key types to normalize | **One was missing:** muxed contracts (`W…`), present in the current SDK. Added. | The corpus test |
 
