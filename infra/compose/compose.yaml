@@ -1,0 +1,62 @@
+# Calistar, local stack (proof of concept).
+#
+#   docker compose -f infra/compose/compose.yaml up -d --wait
+#
+# Only the gateway's public listener is published, on 127.0.0.1. PostgreSQL, Umami and the
+# Collector are reachable on the internal network only. compose.test.yaml adds what the stack
+# tests need to reach.
+#
+# Images are pinned by digest: the tag in the comment is what the digest was resolved from.
+
+name: calistar
+
+services:
+  postgres:
+    # postgres:17-alpine
+    image: docker.io/library/postgres@sha256:526f86d93c6ea08fd3f1fe5605650cacc781b2c6013169a0ad8f42c7d3d84f32
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-local-postgres}
+      UMAMI_DB_PASSWORD: ${UMAMI_DB_PASSWORD:-local-umami}
+      CALISTAR_DB_PASSWORD: ${CALISTAR_DB_PASSWORD:-local-calistar}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U calistar -d calistar && pg_isready -U umami -d umami"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  collector:
+    # otel/opentelemetry-collector-contrib:0.165.0
+    image: docker.io/otel/opentelemetry-collector-contrib@sha256:e40d61f10c9a617cca1ffd1be4d7e2b3a4b0f0001798ff07e58cabe82e618cea
+    environment:
+      CALISTAR_WRITER_ENDPOINT: http://gateway:8081
+    volumes:
+      - ../collector/config.yaml:/etc/otelcol-contrib/config.yaml:ro
+    # No volume and a read-only file system: the Collector cannot write anything to disk.
+    read_only: true
+
+  gateway:
+    build:
+      context: ../..
+      dockerfile: apps/gateway/Dockerfile
+    environment:
+      DATABASE_URL: postgresql://calistar:${CALISTAR_DB_PASSWORD:-local-calistar}@postgres:5432/calistar
+      COLLECTOR_URLS: http://collector:4318
+      UMAMI_URL: http://umami:3000
+      TENANTS_FILE: /seed/tenants.json
+    volumes:
+      - ./seed:/seed:ro
+    ports:
+      # The public listener only. The private one (8081) stays on the internal network.
+      - "127.0.0.1:${GATEWAY_PORT:-8080}:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      collector:
+        condition: service_started
+    read_only: true
+
+volumes:
+  postgres-data:

@@ -1,0 +1,29 @@
+{
+  "name": "@calistar/gateway",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "type": "module",
+  "description": "Calistar gateway: the only public entry point for ingestion. It holds no data.",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "node --watch src/server.ts",
+    "start": "node src/server.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@calistar/normalizer": "workspace:*",
+    "@hono/node-server": "2.1.9",
+    "hono": "4.13.19",
+    "pg": "8.23.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/pg": "8.23.1",
+    "typescript": "^5.0.0",
+    "vitest": "5.1.1"
+  }
+}

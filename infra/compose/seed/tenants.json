@@ -1,0 +1,13 @@
+{
+  "//": "Proof-of-concept seed: two fixed tenants. Tokens are local test values, written in infra/compose/README.md. Only their SHA-256 digests are here, as the control plane will store them.",
+  "tenants": [
+    {
+      "id": "tenant-a",
+      "services": [{ "id": "example-api", "tokenSha256": "2b6fcfb32780d2d0a7ffba9859aa82b7ac566bf77a373a0d01b02b46c9e47f61" }]
+    },
+    {
+      "id": "tenant-b",
+      "services": [{ "id": "example-api", "tokenSha256": "2426c7be1370546ea726e280e3a4bf69f70d029bb4b907bbe922ab9a65e2f68b" }]
+    }
+  ]
+}

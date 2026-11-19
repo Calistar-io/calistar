@@ -1,0 +1,84 @@
+# OpenTelemetry Collector, upstream contrib image, configuration only.
+#
+# What it guarantees:
+# - traces and logs are accepted and end in the no-op exporter: nothing is exported or stored;
+# - only HTTP request-duration histograms continue;
+# - the tenant and the service of a data point come from request metadata set by the gateway,
+#   never from the payload;
+# - the Collector has no storage: the container runs with a read-only file system.
+#
+# It listens on the private network only. The gateway is its only client.
+
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 0.0.0.0:4318
+        # Keeps the request headers set by the gateway available to the processors.
+        include_metadata: true
+
+processors:
+  memory_limiter:
+    check_interval: 1s
+    limit_mib: 200
+    spike_limit_mib: 40
+
+  # A condition that is true drops the metric. `propagate`: if a condition cannot be evaluated,
+  # the request fails instead of letting unfiltered data through.
+  filter/http_duration:
+    error_mode: propagate
+    metric_conditions:
+      - metric.type != METRIC_DATA_TYPE_HISTOGRAM
+      - not IsMatch(metric.name, "^http\\.(server|client)\\.(request\\.)?duration$")
+
+  # `drop`: the first point of a stream this instance has not seen is a baseline, not a value.
+  # A stream that moves to this instance after a failover is never counted twice. The cost is
+  # the interval between the first two points of every new cumulative stream.
+  cumulative_to_delta:
+    initial_value: drop
+
+  # Overwrites whatever the payload says. Without the header the value is "unbound", which the
+  # gateway refuses to store.
+  attributes/tenant:
+    actions:
+      - key: tenant.id
+        from_context: metadata.x-calistar-tenant
+        default_value: unbound
+        action: upsert
+      - key: calistar.service
+        from_context: metadata.x-calistar-service
+        default_value: unbound
+        action: upsert
+
+exporters:
+  nop: {}
+
+  otlp_http/writer:
+    endpoint: ${env:CALISTAR_WRITER_ENDPOINT}
+    encoding: json
+    compression: none
+    tls:
+      insecure: true
+    # In-memory queue and retry: nothing is written to disk.
+    sending_queue:
+      enabled: true
+    retry_on_failure:
+      enabled: true
+
+service:
+  telemetry:
+    logs:
+      level: warn
+    metrics:
+      level: none
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [nop]
+    logs:
+      receivers: [otlp]
+      exporters: [nop]
+    metrics:
+      receivers: [otlp]
+      processors: [memory_limiter, filter/http_duration, cumulative_to_delta, attributes/tenant]
+      exporters: [otlp_http/writer]

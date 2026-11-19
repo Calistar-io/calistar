@@ -1,0 +1,15 @@
+# Images are built from the repository root. Keep the context to sources and manifests.
+.git
+**/node_modules
+**/.next
+**/.turbo
+**/.vitepress/dist
+**/.vitepress/cache
+**/*.tsbuildinfo
+.vercel
+.env*
+!.env.example
+.claude
+.mcp.json
+AGENTS.md
+CLAUDE.md
