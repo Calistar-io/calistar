@@ -517,6 +517,51 @@
    "expected": "/sign/:redacted"
   },
   {
+   "kind": "secret seed glued to text",
+   "input": "/sign/KEYSAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR727UC",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed glued to text",
+   "input": "/sign/SAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR727UCBACKUP",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed glued to text",
+   "input": "/sign/2SAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR727UC7",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, other case",
+   "input": "/sign/saujmrup23t5xguuwr7udpjffp5hx5vjf5olbhk2eau555ugtwr727uc",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, other case",
+   "input": "/sign/saujmrup23t5xguuwr7uDPJFFP5HX5VJF5OLBHK2EAU555UGTWR727UC",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, encoded",
+   "input": "/sign/%53AUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR727UC",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, encoded",
+   "input": "/sign/%2553AUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR727UC",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, encoded",
+   "input": "/sign/%FF%53AUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR727UC",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, encoded",
+   "input": "/sign/%ZZSAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR727UC",
+   "expected": "/sign/:redacted"
+  },
+  {
    "kind": "secret seed in a segment",
    "input": "/sign/secret=SBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQZV6",
    "expected": "/sign/:redacted"
@@ -529,6 +574,51 @@
   {
    "kind": "secret seed in a segment",
    "input": "/sign/key%3DSBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQZV6",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed glued to text",
+   "input": "/sign/KEYSBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQZV6",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed glued to text",
+   "input": "/sign/SBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQZV6BACKUP",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed glued to text",
+   "input": "/sign/2SBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQZV67",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, other case",
+   "input": "/sign/sbekul7tfhxwteut4mgdeopjese24lr5hp6ytppqmt6yy7x4nz4fqzv6",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, other case",
+   "input": "/sign/sbekul7tfhxwteut4mgdEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQZV6",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, encoded",
+   "input": "/sign/%53BEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQZV6",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, encoded",
+   "input": "/sign/%2553BEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQZV6",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, encoded",
+   "input": "/sign/%FF%53BEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQZV6",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, encoded",
+   "input": "/sign/%ZZSBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FQZV6",
    "expected": "/sign/:redacted"
   },
   {
@@ -547,6 +637,51 @@
    "expected": "/sign/:redacted"
   },
   {
+   "kind": "secret seed glued to text",
+   "input": "/sign/KEYSBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH2Q7N",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed glued to text",
+   "input": "/sign/SBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH2Q7NBACKUP",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed glued to text",
+   "input": "/sign/2SBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH2Q7N7",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, other case",
+   "input": "/sign/sbxr6gekasxheqejdgwgsvc7bftgzaffx57v5bslpl6sum35ahyh2q7n",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, other case",
+   "input": "/sign/sbxr6gekasxheqejdgwgSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH2Q7N",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, encoded",
+   "input": "/sign/%53BXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH2Q7N",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, encoded",
+   "input": "/sign/%2553BXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH2Q7N",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, encoded",
+   "input": "/sign/%FF%53BXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH2Q7N",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, encoded",
+   "input": "/sign/%ZZSBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH2Q7N",
+   "expected": "/sign/:redacted"
+  },
+  {
    "kind": "secret seed in a segment",
    "input": "/sign/secret=SBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNLPPR",
    "expected": "/sign/:redacted"
@@ -559,6 +694,51 @@
   {
    "kind": "secret seed in a segment",
    "input": "/sign/key%3DSBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNLPPR",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed glued to text",
+   "input": "/sign/KEYSBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNLPPR",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed glued to text",
+   "input": "/sign/SBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNLPPRBACKUP",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed glued to text",
+   "input": "/sign/2SBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNLPPR7",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, other case",
+   "input": "/sign/sbno4ncptz7pvlfznzw4qee25nuxzp5367cxbssxll5qkmawihlnlppr",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, other case",
+   "input": "/sign/sbno4ncptz7pvlfznzw4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNLPPR",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, encoded",
+   "input": "/sign/%53BNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNLPPR",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, encoded",
+   "input": "/sign/%2553BNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNLPPR",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, encoded",
+   "input": "/sign/%FF%53BNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNLPPR",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, encoded",
+   "input": "/sign/%ZZSBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNLPPR",
    "expected": "/sign/:redacted"
   },
   {
@@ -575,6 +755,151 @@
    "kind": "secret seed in a segment",
    "input": "/sign/key%3DSCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOTEY2",
    "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed glued to text",
+   "input": "/sign/KEYSCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOTEY2",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed glued to text",
+   "input": "/sign/SCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOTEY2BACKUP",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed glued to text",
+   "input": "/sign/2SCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOTEY27",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, other case",
+   "input": "/sign/scwu4glxsmqejqn4vulywhxl2q2wc22i7vynl2o5kupzan7ierlotey2",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, other case",
+   "input": "/sign/scwu4glxsmqejqn4vulyWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOTEY2",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, encoded",
+   "input": "/sign/%53CWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOTEY2",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, encoded",
+   "input": "/sign/%2553CWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOTEY2",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, encoded",
+   "input": "/sign/%FF%53CWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOTEY2",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "secret seed, encoded",
+   "input": "/sign/%ZZSCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOTEY2",
+   "expected": "/sign/:redacted"
+  },
+  {
+   "kind": "account, other case",
+   "input": "/accounts/gaujmrup23t5xguuwr7udpjffp5hx5vjf5olbhk2eau555ugtwr733h5",
+   "expected": "/accounts/:account"
+  },
+  {
+   "kind": "embedded key",
+   "input": "/accounts/acct_GAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR733H5",
+   "expected": "/accounts/:strkey"
+  },
+  {
+   "kind": "embedded key",
+   "input": "/accounts/GAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR733H5.json",
+   "expected": "/accounts/:strkey"
+  },
+  {
+   "kind": "unknown key type",
+   "input": "/keys/ZAUJMRUP23T5XGUUWR7UDPJFFP5HX5VJF5OLBHK2EAU555UGTWR733H5",
+   "expected": "/keys/:strkey"
+  },
+  {
+   "kind": "account, other case",
+   "input": "/accounts/gbekul7tfhxwteut4mgdeopjese24lr5hp6ytppqmt6yy7x4nz4fr5gb",
+   "expected": "/accounts/:account"
+  },
+  {
+   "kind": "embedded key",
+   "input": "/accounts/acct_GBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FR5GB",
+   "expected": "/accounts/:strkey"
+  },
+  {
+   "kind": "embedded key",
+   "input": "/accounts/GBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FR5GB.json",
+   "expected": "/accounts/:strkey"
+  },
+  {
+   "kind": "unknown key type",
+   "input": "/keys/ZBEKUL7TFHXWTEUT4MGDEOPJESE24LR5HP6YTPPQMT6YY7X4NZ4FR5GB",
+   "expected": "/keys/:strkey"
+  },
+  {
+   "kind": "account, other case",
+   "input": "/accounts/gbxr6gekasxheqejdgwgsvc7bftgzaffx57v5bslpl6sum35ahyh3ums",
+   "expected": "/accounts/:account"
+  },
+  {
+   "kind": "embedded key",
+   "input": "/accounts/acct_GBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3UMS",
+   "expected": "/accounts/:strkey"
+  },
+  {
+   "kind": "embedded key",
+   "input": "/accounts/GBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3UMS.json",
+   "expected": "/accounts/:strkey"
+  },
+  {
+   "kind": "unknown key type",
+   "input": "/keys/ZBXR6GEKASXHEQEJDGWGSVC7BFTGZAFFX57V5BSLPL6SUM35AHYH3UMS",
+   "expected": "/keys/:strkey"
+  },
+  {
+   "kind": "account, other case",
+   "input": "/accounts/gbno4ncptz7pvlfznzw4qee25nuxzp5367cxbssxll5qkmawihlnkl4o",
+   "expected": "/accounts/:account"
+  },
+  {
+   "kind": "embedded key",
+   "input": "/accounts/acct_GBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNKL4O",
+   "expected": "/accounts/:strkey"
+  },
+  {
+   "kind": "embedded key",
+   "input": "/accounts/GBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNKL4O.json",
+   "expected": "/accounts/:strkey"
+  },
+  {
+   "kind": "unknown key type",
+   "input": "/keys/ZBNO4NCPTZ7PVLFZNZW4QEE25NUXZP5367CXBSSXLL5QKMAWIHLNKL4O",
+   "expected": "/keys/:strkey"
+  },
+  {
+   "kind": "account, other case",
+   "input": "/accounts/gcwu4glxsmqejqn4vulywhxl2q2wc22i7vynl2o5kupzan7ierlosalf",
+   "expected": "/accounts/:account"
+  },
+  {
+   "kind": "embedded key",
+   "input": "/accounts/acct_GCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSALF",
+   "expected": "/accounts/:strkey"
+  },
+  {
+   "kind": "embedded key",
+   "input": "/accounts/GCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSALF.json",
+   "expected": "/accounts/:strkey"
+  },
+  {
+   "kind": "unknown key type",
+   "input": "/keys/ZCWU4GLXSMQEJQN4VULYWHXL2Q2WC22I7VYNL2O5KUPZAN7IERLOSALF",
+   "expected": "/keys/:strkey"
   },
   {
    "kind": "asset",

@@ -69,6 +69,26 @@ export function buildCorpus(perType = 5): CorpusCase[] {
     cases.push({ kind: "secret seed in a segment", input: `/sign/secret=${seed}`, expected: "/sign/:redacted" });
     cases.push({ kind: "secret seed in a segment", input: `/sign/USDC:${seed}`, expected: "/sign/:redacted" });
     cases.push({ kind: "secret seed in a segment", input: `/sign/key%3D${seed}`, expected: "/sign/:redacted" });
+    // Glued to base32 characters on either side: no boundary to rely on.
+    cases.push({ kind: "secret seed glued to text", input: `/sign/KEY${seed}`, expected: "/sign/:redacted" });
+    cases.push({ kind: "secret seed glued to text", input: `/sign/${seed}BACKUP`, expected: "/sign/:redacted" });
+    cases.push({ kind: "secret seed glued to text", input: `/sign/2${seed}7`, expected: "/sign/:redacted" });
+    // Lower-cased or mixed case, as a client or a proxy may rewrite a path.
+    cases.push({ kind: "secret seed, other case", input: `/sign/${seed.toLowerCase()}`, expected: "/sign/:redacted" });
+    cases.push({ kind: "secret seed, other case", input: `/sign/s${seed.slice(1, 20).toLowerCase()}${seed.slice(20)}`, expected: "/sign/:redacted" });
+    // Percent-encoded once, twice, and next to an escape that is not valid UTF-8.
+    cases.push({ kind: "secret seed, encoded", input: `/sign/%53${seed.slice(1)}`, expected: "/sign/:redacted" });
+    cases.push({ kind: "secret seed, encoded", input: `/sign/%2553${seed.slice(1)}`, expected: "/sign/:redacted" });
+    cases.push({ kind: "secret seed, encoded", input: `/sign/%FF%53${seed.slice(1)}`, expected: "/sign/:redacted" });
+    cases.push({ kind: "secret seed, encoded", input: `/sign/%ZZ${seed}`, expected: "/sign/:redacted" });
+  }
+
+  // A public key in another case, glued to text, or of a type not known yet, is still replaced.
+  for (const account of ENCODERS.encodeEd25519PublicKey!.keys(perType)) {
+    cases.push({ kind: "account, other case", input: `/accounts/${account.toLowerCase()}`, expected: "/accounts/:account" });
+    cases.push({ kind: "embedded key", input: `/accounts/acct_${account}`, expected: "/accounts/:strkey" });
+    cases.push({ kind: "embedded key", input: `/accounts/${account}.json`, expected: "/accounts/:strkey" });
+    cases.push({ kind: "unknown key type", input: `/keys/Z${account.slice(1)}`, expected: "/keys/:strkey" });
   }
 
   // An asset is a code and its issuer, joined by "-" or ":".

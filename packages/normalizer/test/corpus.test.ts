@@ -22,8 +22,16 @@ describe("Stellar corpus", () => {
   it("never lets a generated secret seed through", () => {
     const seeds = ENCODERS.encodeEd25519SecretSeed!.keys(50);
     for (const seed of seeds) {
-      for (const input of [`/${seed}`, `/a/${seed}/b`, `/a/x-${seed}`, `/a/${seed}.json`, `/a?secret=${seed}`]) {
-        expect(normalizePath(input)).not.toContain(seed);
+      const lower = seed.toLowerCase();
+      const inputs = [
+        `/${seed}`, `/a/${seed}/b`, `/a/x-${seed}`, `/a/${seed}.json`, `/a?secret=${seed}`,
+        `/a/KEY${seed}`, `/a/${seed}KEY`, `/a/G${seed}`, `/a/${seed}${seed}`,
+        `/a/${lower}`, `/a/key${lower}`, `/a/%53${seed.slice(1)}`, `/a/%2553${seed.slice(1)}`,
+      ];
+      for (const input of inputs) {
+        const out = normalizePath(input);
+        // The first letter is known to be S: the 55 characters after it are the secret.
+        expect(out.toUpperCase()).not.toContain(seed.slice(1));
       }
     }
   });
@@ -41,7 +49,7 @@ describe("other identifiers", () => {
     ["/orders/1234567890123456789012", "/orders/:id"],
     ["/session/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.dBjftJeZ4CVPmB92K27uhbUJU1p1r_wW1gFWFOEjXk", "/session/:token"],
     ["/invite/Zm9vYmFyMTIzNDU2Nzg5MGFiY2RlZmdoaWprbG1ub3A", "/invite/:token"],
-    [`/files/${"z".repeat(65)}`, "/files/:long"],
+    [`/files/${"a-".repeat(33)}`, "/files/:long"],
   ])("%s -> %s", (input, expected) => {
     expect(normalizePath(input)).toBe(expected);
   });
