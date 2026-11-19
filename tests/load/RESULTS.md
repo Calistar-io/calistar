@@ -4,7 +4,9 @@ Run of `tests/load/api-ingest.js`, followed by `tests/load/verify-counts.mjs`.
 
 ## 2026-11-19, GitHub-hosted runner
 
-[Workflow run 44501975603](https://github.com/Calistar-io/calistar/actions/runs/44501975603), job "Short load run", commit `7039a1a`. The summary file is attached to the run as the artifact `load-run`.
+[Workflow run 44505024006](https://github.com/Calistar-io/calistar/actions/runs/44505024006), job "Short load run", commit `07aed8b`. The summary file is attached to the run as the artifact `load-run`.
+
+Requests went through the reverse proxy, as they would from outside: proxy, gateway, Collector, gateway, PostgreSQL.
 
 | | |
 | --- | --- |
@@ -16,13 +18,19 @@ Run of `tests/load/api-ingest.js`, followed by `tests/load/verify-counts.mjs`.
 | Requests represented | 120,040, or 200 per second: 17,280,000 per day, 17 times the RFP design target |
 | Distinct routes written | 2,000 |
 | **Requests stored** | **120,040: equal to what was sent** |
-| Ingest latency, median | 2.2 ms |
-| Ingest latency, 95th percentile | 3.4 ms |
-| Ingest latency, 99th percentile | 4.9 ms |
-| Ingest latency, maximum | 31.9 ms |
+| Ingest latency, median | 2.7 ms |
+| Ingest latency, 95th percentile | 4.3 ms |
+| Ingest latency, 99th percentile | 5.8 ms |
+| Ingest latency, maximum | 35.1 ms |
 
-Latency is what the exporter sees: the time for the gateway to authenticate the request, pass it to the Collector and return the Collector's answer.
+Latency is what the exporter sees: the time for the proxy and the gateway to authenticate the request, pass it to the Collector and return the Collector's answer.
 
-**Hardware.** A GitHub-hosted `ubuntu-latest` runner (image `ubuntu-26.04`), with the load generator and the whole stack on the same machine: PostgreSQL, Umami, the Collector, the gateway, the reverse proxy and the two examples. The run's summary page gives the CPU count, the memory and the per-container usage.
+**Hardware.** A GitHub-hosted `ubuntu-latest` runner: 4 CPUs, 15 GiB of memory, Linux 7.0.0-1020-azure. The load generator and the whole stack shared that machine: PostgreSQL, Umami, the Collector, the gateway, the reverse proxy and the two examples. The run's summary page lists the usage of each container.
 
-**What this run is not.** It is ten minutes, not the one-hour test planned for the service, it is one machine, and it covers the API path only. A local attempt on a 1.9 GiB virtual machine shared with other containers ran out of memory before producing a result.
+**What this run is not.** It is ten minutes, not the one-hour test planned for the service; it is one machine; and it covers the API path only.
+
+## Earlier runs
+
+- [Run 44501975603](https://github.com/Calistar-io/calistar/actions/runs/44501975603), commit `7039a1a`, before the reverse proxy existed: requests went straight to the gateway. Same workload, 120,040 requests stored for 120,040 sent, latency median 2.2 ms, 99th percentile 4.9 ms.
+- [Run 44499702922](https://github.com/Calistar-io/calistar/actions/runs/44499702922): the load passed and the count check failed, because of a mistake in the script, which drew a different run identifier for every virtual user. Fixed in `7039a1a`.
+- A local attempt, on a 1.9 GiB virtual machine shared with other containers, ran out of memory before producing a result.

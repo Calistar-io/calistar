@@ -75,7 +75,7 @@ Left out on purpose: the console and enrollment, the reduced tracker build (the 
 
 ### Load
 
-One short run, on the API path, on a GitHub-hosted runner. The stack and the load generator shared the machine.
+One short run, on the API path, through the reverse proxy, on a GitHub-hosted runner with 4 CPUs and 15 GiB of memory. The stack and the load generator shared the machine.
 
 | | |
 | --- | --- |
@@ -84,7 +84,7 @@ One short run, on the API path, on a GitHub-hosted runner. The stack and the loa
 | Requests represented | 120,040, or 200 per second: 17 times the RFP design target of 1,000,000 per day |
 | Exports refused | 0 |
 | **Requests stored** | **120,040: equal to what was sent** |
-| Ingest latency | median 2.2 ms, 95th percentile 3.4 ms, 99th percentile 4.9 ms |
+| Ingest latency | median 2.7 ms, 95th percentile 4.3 ms, 99th percentile 5.8 ms |
 
 This is ten minutes on one machine, not the one-hour test planned for the service. The script, the count check and the details of the run are in `tests/load`.
 
