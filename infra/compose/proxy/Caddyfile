@@ -20,8 +20,8 @@
 }
 
 :8080 {
-	# No proxy is trusted in front of this one: Caddy replaces any X-Forwarded-For the caller
-	# sent with the address it sees, and the gateway reads that.
+	# The gateway takes the last entry of X-Forwarded-For, the one this proxy writes: whatever
+	# the caller put in that header does not choose the address the gateway sees.
 
 	@ingest path /v1/metrics /v1/traces /v1/logs /v1/e /s/v0.js
 	handle @ingest {

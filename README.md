@@ -26,7 +26,7 @@ The gateway, the stack and the tests are a **proof of concept**. It runs on a de
 
 ## Requirements
 
-- Node.js 24 or later
+- Node.js 24 or later for the gateway and the tests (Node.js 22 is enough for the landing page and the documentation)
 - pnpm 12 (`corepack enable` picks the version pinned in `package.json`)
 - For the local stack: Docker with Compose, and about 4 GB of memory for the containers
 

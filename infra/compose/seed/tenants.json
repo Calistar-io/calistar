@@ -1,5 +1,5 @@
 {
-  "//": "Proof-of-concept seed: two fixed tenants. Tokens are local test values, written in infra/compose/README.md. Only their SHA-256 digests are here, as the control plane will store them.",
+  "//": "Proof-of-concept seed: two fixed tenants. Tokens are local test values, written in tests/e2e/support/stack.ts. Only their SHA-256 digests are here, as the control plane will store them.",
   "tenants": [
     {
       "id": "tenant-a",

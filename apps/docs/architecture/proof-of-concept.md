@@ -68,7 +68,7 @@ Left out on purpose: the console and enrollment, the reduced tracker build (the 
 
 17 tests on the running stack. The proxy is the only thing the stack publishes.
 
-- Ingestion works through it, and a caller cannot choose the address the gateway sees: an `X-Forwarded-For` header sent from outside is replaced.
+- Ingestion works through it, and a caller cannot choose the address the gateway sees: the gateway takes the address the proxy wrote, whatever `X-Forwarded-For` header the caller sent.
 - The dashboard works through it: a browser opens it from a token, and every route it calls on the overview, events, sessions, realtime and compare pages is published.
 - Umami's collection endpoints, its tracker script, its sign-in page and its sign-in route answer 404.
 - Nothing that writes reaches Umami, even with a valid token: not the API-key route, not a rename, a reset or a deletion.
