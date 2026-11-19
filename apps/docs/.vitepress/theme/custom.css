@@ -1,0 +1,302 @@
+/* Calistar docs theme: the landing's tokens (apps/landing/app/globals.css), mapped onto VitePress. */
+:root {
+  --ink: #07122c;
+  --paper: #f2f4ec;
+  --muted: #65718c;
+  --line: rgba(7, 18, 44, 0.14);
+  --acid: #c9ff4a;
+  --blue: #73e4ff;
+  --orange: #ff7a53;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Secondary colours the landing uses inline */
+  --copy: #52607a;
+  --label: #56637e;
+  --lilac: #d7e0fd;
+  --sky: #dcecff;
+  --peach: #ffc4b3;
+  --panel: #1a272f;
+  --paper-sunk: #e7eadf;
+}
+
+/* ─── Tokens → VitePress ─────────────────────────────────────────────── */
+:root {
+  --vp-font-family-base: var(--sans);
+  --vp-font-family-mono: var(--mono);
+
+  /* Ink is the brand colour: acid, blue and orange are accents, unreadable as text on paper */
+  --vp-c-brand-1: var(--ink);
+  --vp-c-brand-2: #1c2a4c;
+  --vp-c-brand-3: #33426a;
+  --vp-c-brand-soft: rgba(7, 18, 44, 0.08);
+
+  --vp-c-bg: var(--paper);
+  --vp-c-bg-alt: var(--paper);
+  --vp-c-bg-elv: #ffffff;
+  --vp-c-bg-soft: var(--paper-sunk);
+  --vp-nav-bg-color: var(--paper);
+  --vp-sidebar-bg-color: var(--paper);
+  --vp-local-search-bg: var(--paper);
+
+  --vp-c-text-1: var(--ink);
+  --vp-c-text-2: var(--copy);
+  --vp-c-text-3: var(--muted);
+  --vp-c-divider: var(--line);
+  --vp-c-border: var(--ink);
+  --vp-c-gutter: var(--line);
+
+  --vp-c-default-1: var(--muted);
+  --vp-c-default-2: #a9b2c4;
+  --vp-c-default-3: #cfd5df;
+  --vp-c-default-soft: var(--paper-sunk);
+
+  --vp-c-tip-1: var(--ink);
+  --vp-c-tip-2: var(--ink);
+  --vp-c-tip-3: var(--ink);
+  --vp-c-tip-soft: var(--acid);
+  --vp-c-warning-1: var(--ink);
+  --vp-c-warning-2: var(--ink);
+  --vp-c-warning-3: var(--ink);
+  --vp-c-warning-soft: var(--peach);
+  --vp-c-danger-1: var(--ink);
+  --vp-c-danger-2: var(--ink);
+  --vp-c-danger-3: var(--ink);
+  --vp-c-danger-soft: var(--orange);
+  --vp-c-important-1: var(--ink);
+  --vp-c-important-2: var(--ink);
+  --vp-c-important-3: var(--ink);
+  --vp-c-important-soft: var(--sky);
+  --vp-c-note-1: var(--ink);
+  --vp-c-note-2: var(--ink);
+  --vp-c-note-3: var(--ink);
+  --vp-c-note-soft: var(--sky);
+  --vp-custom-block-info-bg: var(--sky);
+  --vp-custom-block-info-text: var(--ink);
+  --vp-custom-block-tip-text: var(--ink);
+  --vp-custom-block-warning-text: var(--ink);
+  --vp-custom-block-danger-text: var(--ink);
+
+  --vp-button-brand-bg: var(--ink);
+  --vp-button-brand-border: var(--ink);
+  --vp-button-brand-text: var(--paper);
+  --vp-button-brand-hover-bg: var(--ink);
+  --vp-button-brand-hover-border: var(--ink);
+  --vp-button-brand-hover-text: var(--paper);
+  --vp-button-brand-active-bg: var(--ink);
+  --vp-button-brand-active-border: var(--ink);
+  --vp-button-brand-active-text: var(--paper);
+  --vp-button-alt-bg: transparent;
+  --vp-button-alt-border: var(--ink);
+  --vp-button-alt-text: var(--ink);
+  --vp-button-alt-hover-bg: #ffffff;
+  --vp-button-alt-hover-border: var(--ink);
+  --vp-button-alt-hover-text: var(--ink);
+  --vp-button-alt-active-bg: #ffffff;
+  --vp-button-alt-active-border: var(--ink);
+  --vp-button-alt-active-text: var(--ink);
+
+  --vp-code-block-bg: var(--panel);
+  --vp-code-block-color: #eef5d7;
+  --vp-code-color: var(--ink);
+  --vp-code-bg: rgba(7, 18, 44, 0.07);
+  --vp-code-copy-code-bg: var(--panel);
+  --vp-code-copy-code-border-color: rgba(238, 245, 215, 0.3);
+  --vp-code-lang-color: rgba(238, 245, 215, 0.6);
+
+  --vp-home-hero-name-color: var(--ink);
+  --vp-home-hero-name-background: none;
+  --vp-nav-logo-height: 30px;
+}
+
+/* ─── Square corners, as on the landing ──────────────────────────────── */
+.VPButton,
+.VPFeature,
+.custom-block,
+.vp-doc div[class*='language-'],
+.vp-doc :not(pre) > code,
+.vp-doc table,
+.vp-doc img,
+.VPBadge,
+.DocSearch-Button,
+.VPLocalSearchBox .shell,
+.VPLocalSearchBox .result,
+.VPLocalSearchBox .search-bar,
+.pager-link,
+.VPMenu,
+.VPNavScreenMenuGroup,
+.VPLink.link {
+  border-radius: 0 !important;
+}
+
+:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+
+/* ─── Nav ────────────────────────────────────────────────────────────── */
+.VPNavBar .divider-line { background-color: var(--line); }
+@media (min-width: 960px) {
+  .VPNav .VPNavBar.has-sidebar:not(.home) { background-color: var(--paper); }
+}
+.VPNavBarTitle .title {
+  gap: 2px;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+}
+/* "docs" tag after the brand */
+.VPNavBarTitle .title::after {
+  content: 'DOCS';
+  margin-left: 10px;
+  padding: 3px 6px;
+  border: 1px solid var(--ink);
+  background: var(--acid);
+  font: 500 9px/1.2 var(--mono);
+  letter-spacing: 0.1em;
+}
+.VPNavBarMenuLink,
+.VPNavScreenMenuLink {
+  font: 500 12px/1 var(--mono) !important;
+  letter-spacing: 0.03em;
+}
+.VPNavBarMenuLink { line-height: var(--vp-nav-height) !important; }
+.VPNavBarMenuLink:hover { text-decoration: underline; }
+.VPNavBarMenuLink.active { box-shadow: inset 0 -2px 0 var(--orange); }
+.DocSearch-Button {
+  border: 1px solid var(--ink) !important;
+  background: transparent !important;
+  font-family: var(--mono);
+}
+
+/* ─── Sidebar and outline ────────────────────────────────────────────── */
+.VPSidebar { border-right: 1px solid var(--line); }
+.VPSidebarItem.level-0 > .item .text,
+.VPDocAsideOutline .outline-title {
+  color: var(--label);
+  font: 500 10px/1.6 var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.VPSidebarItem.level-1 .text { font-size: 14px; }
+.VPSidebarItem.level-1.is-active > .item .text { color: var(--ink); font-weight: 700; }
+.VPSidebarItem.level-1.is-active > .item .indicator { background-color: var(--orange); }
+.VPDocAsideOutline .outline-marker { background-color: var(--orange); }
+
+/* ─── Home ───────────────────────────────────────────────────────────── */
+/* The landing's starfield */
+.VPHome {
+  background-image:
+    radial-gradient(rgba(7, 18, 44, 0.36) 1px, transparent 1px),
+    radial-gradient(rgba(7, 18, 44, 0.36) 1px, transparent 1px);
+  background-position: 0 0, 19px 23px;
+  background-size: 79px 79px, 139px 139px;
+}
+.VPHero .name,
+.VPHero .text {
+  font-weight: 800;
+  letter-spacing: -0.07em;
+  line-height: 0.97 !important;
+}
+.VPHero .text { padding-top: 6px; }
+.VPHero .tagline {
+  max-width: 620px;
+  padding-top: 22px;
+  color: #47536d;
+  font-size: 18px;
+  line-height: 1.65;
+}
+.VPHero .actions { gap: 6px; }
+.VPButton {
+  padding: 0 19px !important;
+  font: 500 12px/42px var(--mono) !important;
+  transition: 0.2s;
+}
+.VPButton.brand { box-shadow: 4px 4px 0 var(--orange); }
+.VPButton.brand:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--orange); }
+
+.VPFeature {
+  border: 1px solid var(--ink) !important;
+  background-color: var(--paper) !important;
+}
+.VPFeatures .item:nth-child(4n + 1) .VPFeature { background-color: var(--lilac) !important; }
+.VPFeatures .item:nth-child(4n + 2) .VPFeature { background-color: var(--acid) !important; }
+.VPFeatures .item:nth-child(4n + 3) .VPFeature { background-color: var(--peach) !important; }
+.VPFeatures .item:nth-child(4n + 4) .VPFeature { background-color: var(--sky) !important; }
+.VPFeature .title { font-size: 20px; font-weight: 800; letter-spacing: -0.055em; }
+.VPFeature .details { color: #4e5b74; font-size: 13px; line-height: 1.7; }
+.VPFeature .link-text { color: var(--ink); font: 500 11px var(--mono); }
+.VPFeature:hover { box-shadow: 6px 6px 0 var(--ink); transform: translate(-2px, -2px); transition: 0.2s; }
+
+.VPFooter { border-top: 1px solid var(--line) !important; background-color: var(--paper) !important; }
+.VPFooter .message,
+.VPFooter .copyright { color: var(--label); font: 10px/1.7 var(--mono); }
+
+/* ─── Doc pages ──────────────────────────────────────────────────────── */
+.vp-doc h1,
+.vp-doc h2,
+.vp-doc h3 { font-weight: 800; }
+.vp-doc h1 { font-size: clamp(36px, 5vw, 52px); letter-spacing: -0.07em; line-height: 1; }
+.vp-doc h2 { border-top-color: var(--line); font-size: 26px; letter-spacing: -0.05em; }
+.vp-doc h3 { font-size: 19px; letter-spacing: -0.04em; }
+.vp-doc p,
+.vp-doc li { color: var(--copy); line-height: 1.7; }
+.vp-doc strong { color: var(--ink); }
+
+.vp-doc a:not(.header-anchor) {
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--orange);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+.vp-doc a:not(.header-anchor):hover { background-color: var(--acid); text-decoration-color: var(--ink); }
+
+.vp-doc blockquote { border-left: 2px solid var(--orange); }
+
+/* Tables: ruled in ink, mono header */
+.vp-doc table { display: table; width: 100%; border-collapse: collapse; font-size: 14px; }
+.vp-doc tr { border-top: 0; background-color: transparent !important; }
+.vp-doc th,
+.vp-doc td { border: 1px solid var(--ink); padding: 10px 12px; vertical-align: top; }
+.vp-doc th {
+  color: var(--paper);
+  background-color: var(--ink);
+  font: 500 10px/1.5 var(--mono);
+  letter-spacing: 0.09em;
+  text-align: left;
+  text-transform: uppercase;
+}
+.vp-doc td { color: var(--copy); line-height: 1.6; }
+.vp-doc td:first-child { color: var(--ink); font-weight: 700; }
+@media (max-width: 640px) {
+  .vp-doc table { display: block; overflow-x: auto; }
+}
+
+/* Callouts: flat colour, ink border, mono title */
+.custom-block { border: 1px solid var(--ink) !important; }
+.custom-block p { color: var(--ink); }
+.custom-block .custom-block-title {
+  font: 500 10px/1.6 var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.custom-block.danger .custom-block-title { color: var(--ink); }
+
+/* Code: the landing's dark API panel */
+.vp-doc div[class*='language-'] { box-shadow: 5px 5px 0 rgba(7, 18, 44, 0.6); }
+.vp-doc :not(pre) > code { padding: 2px 5px; font-size: 0.86em; }
+
+/* Diagrams: framed like the landing's architecture diagram */
+.vp-doc img {
+  display: block;
+  width: 100%;
+  margin: 28px 0 36px;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  box-shadow: 8px 8px 0 var(--ink);
+}
+
+/* Prev / next */
+.pager-link { border: 1px solid var(--ink) !important; }
+.pager-link:hover { background-color: #ffffff; }
+.pager-link .desc { color: var(--label); font: 500 10px var(--mono); letter-spacing: 0.1em; text-transform: uppercase; }
+.pager-link .title { color: var(--ink) !important; font-weight: 800; letter-spacing: -0.03em; }

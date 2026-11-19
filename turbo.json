@@ -3,12 +3,14 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**", ".vitepress/dist/**"],
+      "env": ["DOCS_ORIGIN", "CONSOLE_URL"]
     },
     "typecheck": {
       "dependsOn": ["^typecheck"]
     },
     "dev": {
+      "env": ["DOCS_ORIGIN", "CONSOLE_URL"],
       "cache": false,
       "persistent": true
     }

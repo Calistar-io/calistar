@@ -1,6 +1,17 @@
 # Calistar landing page
 
-Next.js 16 App Router landing page. Static, no database, no environment variables.
+Next.js 16 App Router landing page. Static, no database.
+
+## Routing to the other apps
+
+Set in `next.config.ts`. Both variables are read at build time, so redeploy after changing one. Set them in the Vercel project (**Settings → Environment Variables**), or in `.env.local` for local work.
+
+| Variable | Effect | Default |
+| --- | --- | --- |
+| `DOCS_ORIGIN` | `/docs/*` is proxied (rewrite) to this origin, the production domain of the docs Vercel project (`apps/docs`). Unset, `/docs` returns 404. | unset |
+| `CONSOLE_URL` | `/console/*` redirects to this URL. Unset, the route does not exist. | unset |
+
+`/docs` is a rewrite, so the address bar stays on `calistar.io`. `/console` is a redirect, because the console keeps its own domain and hosting.
 
 ## Run locally
 

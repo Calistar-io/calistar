@@ -1,5 +1,7 @@
 node_modules
 .next
+**/.vitepress/dist
+**/.vitepress/cache
 .turbo
 *.tsbuildinfo
 .vercel

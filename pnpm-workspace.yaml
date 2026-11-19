@@ -1,3 +1,6 @@
 packages:
   - 'apps/*'
   - 'packages/*'
+# VitePress builds with esbuild, whose install script sets up its platform binary.
+allowBuilds:
+  esbuild: true

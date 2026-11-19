@@ -48,6 +48,7 @@ export default function Home() {
           <a href="#architecture">Architecture</a>
           <a href="#metrics">Metrics</a>
           <a href="#team">Team</a>
+          <a href="/docs">Docs</a>
         </nav>
         <a className="headerLink" href="#brief">Project brief <span>↗</span></a>
       </header>
@@ -187,7 +188,7 @@ export default function Home() {
               <a className="button buttonQuiet" href="https://www.linkedin.com/in/cedricmagne/" target="_blank" rel="noreferrer">
                 LinkedIn profile <span>↗</span>
               </a>
-              <a className="button buttonQuiet" href="/docs">Read technical notes</a>
+              <a className="button buttonQuiet" href="/docs">Read the docs</a>
             </div>
           </div>
           <div className="evidenceList">
@@ -223,7 +224,7 @@ export default function Home() {
       <footer className="container siteFooter">
         <a href="#top"><Brand /></a>
         <p>Privacy-first web and API analytics for Stellar ecosystem projects.</p>
-        <p><a href="/docs">Technical notes</a> · Proposed open-source infrastructure · 2026</p>
+        <p><a href="/docs">Documentation</a> · Proposed open-source infrastructure · 2026</p>
       </footer>
     </>
   );

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" role="img" aria-label="Calistar">
+  <g transform="rotate(-28 22 22)">
+    <circle cx="22" cy="22" r="13.75" fill="none" stroke="#07122c" stroke-width="1.5"/>
+    <line x1="3" y1="22" x2="42" y2="22" stroke="#07122c" stroke-width="1"/>
+    <circle cx="22" cy="22" r="4.5" fill="#07122c"/>
+    <circle cx="30.5" cy="10" r="3.5" fill="#ff7a53" stroke="#07122c" stroke-width="1"/>
+  </g>
+</svg>
