@@ -19,12 +19,24 @@ const ROUTES = 40;
 const EXPORT_INTERVAL_S = 10;
 // Local test tokens of the two seed tenants (infra/compose/seed/tenants.json holds their digests).
 const TOKENS = ["calistar-poc-token-tenant-a", "calistar-poc-token-tenant-b"];
-// Lower-case letters only: no normalization rule matches it, so it can be found again.
-const RUN_ID = __ENV.RUN_ID || `load${Math.random().toString(36).replace(/[^a-z]/g, "").slice(0, 8)}`;
+
+// One identifier per run, used as the first segment of every route so the run can be found
+// again. It is chosen once, in setup(): the top of a k6 script runs again for every virtual user.
+// Lower-case letters only, so that no normalization rule matches it.
+function newRunId() {
+  let id = "load";
+  while (id.length < 12) id += String.fromCharCode(97 + Math.floor(Math.random() * 26));
+  return id;
+}
+
+export function setup() {
+  return { runId: __ENV.RUN_ID || newRunId() };
+}
 
 const BOUNDS = [0.005, 0.01, 0.025, 0.05, 0.075, 0.1, 0.25, 0.5, 0.75, 1, 2.5, 5, 7.5, 10];
 
 export const options = {
+  summaryTrendStats: ["avg", "min", "med", "max", "p(95)", "p(99)"],
   scenarios: {
     exporters: {
       executor: "constant-arrival-rate",
@@ -37,13 +49,13 @@ export const options = {
   },
   thresholds: {
     // Ingest latency, as the exporter sees it.
-    "http_req_duration{expected_response:true}": ["p(99)<250"],
+    http_req_duration: ["p(99)<250"],
     checks: ["rate==1"],
     dropped_iterations: ["count==0"],
   },
 };
 
-function exportBody(exporter) {
+function exportBody(runId, exporter) {
   const now = `${Date.now()}000000`;
   const start = `${Date.now() - EXPORT_INTERVAL_S * 1000}000000`;
   const dataPoints = [];
@@ -54,7 +66,7 @@ function exportBody(exporter) {
     dataPoints.push({
       attributes: [
         { key: "http.request.method", value: { stringValue: "GET" } },
-        { key: "http.route", value: { stringValue: `/${RUN_ID}/svc${exporter}/route${route}` } },
+        { key: "http.route", value: { stringValue: `/${runId}/svc${exporter}/route${route}` } },
         { key: "http.response.status_code", value: { intValue: "200" } },
       ],
       startTimeUnixNano: start,
@@ -75,9 +87,9 @@ function exportBody(exporter) {
   });
 }
 
-export default function () {
+export default function ({ runId }) {
   const exporter = exec.scenario.iterationInTest % EXPORTERS;
-  const res = http.post(`${GATEWAY_URL}/v1/metrics`, exportBody(exporter), {
+  const res = http.post(`${GATEWAY_URL}/v1/metrics`, exportBody(runId, exporter), {
     headers: { "content-type": "application/json", authorization: `Bearer ${TOKENS[exporter % TOKENS.length]}` },
   });
   check(res, { "export accepted": (r) => r.status === 200 });
@@ -87,7 +99,7 @@ export function handleSummary(data) {
   const metric = (name) => (data.metrics[name] ? data.metrics[name].values : {});
   const accepted = metric("checks").passes || 0;
   const summary = {
-    runId: RUN_ID,
+    runId: data.setup_data.runId,
     duration: DURATION,
     exportsAccepted: accepted,
     exportsRefused: metric("checks").fails || 0,
@@ -98,7 +110,7 @@ export function handleSummary(data) {
       avg: metric("http_req_duration").avg,
       med: metric("http_req_duration").med,
       p95: metric("http_req_duration")["p(95)"],
-      p99: metric("http_req_duration{expected_response:true}")["p(99)"],
+      p99: metric("http_req_duration")["p(99)"],
       max: metric("http_req_duration").max,
     },
     thresholdsPassed: Object.values(data.metrics).every((m) => !m.thresholds || Object.values(m.thresholds).every((t) => t.ok)),
