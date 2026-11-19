@@ -6,7 +6,7 @@ description: The components of Calistar, how web events and API metrics travel t
 # Architecture overview
 
 ::: warning Draft
-Calistar is a proposal answering the Stellar Community Fund RFP *Web and API Analytics for Stellar Ecosystem Projects*. Nothing on this page is running yet, and details can change until the scope is approved.
+Calistar is a proposal answering the Stellar Community Fund RFP *Web and API Analytics for Stellar Ecosystem Projects*. No service is running yet, and details can change until the scope is approved. A [proof of concept](/architecture/proof-of-concept) checks the design on a developer machine.
 :::
 
 Calistar is a multi-tenant web and API analytics service for projects building on Stellar. It is designed to run as shared infrastructure for the Stellar Community Fund (SCF), and then to be handed to a community operator.
@@ -68,7 +68,7 @@ Calistar does not use the ledger: no smart contract and no on-chain write. It is
 
 ## Repository layout
 
-This is the planned layout. Today the repository holds `apps/landing` and `apps/docs` only.
+This is the planned layout. Today the repository holds the landing page, this documentation and a [proof of concept](/architecture/proof-of-concept): a first gateway, the path normalizer, the local stack, two examples and the stack tests. The console, the tracker build and the infrastructure as code are not written yet.
 
 ```text
 apps/        console/  gateway/  landing/  docs/

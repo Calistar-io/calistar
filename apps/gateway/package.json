@@ -9,7 +9,6 @@
     "node": ">=24"
   },
   "scripts": {
-    "dev": "node --watch src/server.ts",
     "start": "node src/server.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"

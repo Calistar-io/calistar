@@ -11,3 +11,6 @@ node_modules
 AGENTS.md
 CLAUDE.md
 .mcp.json
+
+# Summary of the last local load run, written by tests/load/api-ingest.js
+tests/load/last-run.json

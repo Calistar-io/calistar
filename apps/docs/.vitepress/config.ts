@@ -71,7 +71,13 @@ export default defineConfig({
     ],
 
     sidebar: [
-      { text: 'Understand', items: [{ text: 'Architecture overview', link: '/architecture/' }] },
+      {
+        text: 'Understand',
+        items: [
+          { text: 'Architecture overview', link: '/architecture/' },
+          { text: 'Proof of concept', link: '/architecture/proof-of-concept' },
+        ],
+      },
       {
         text: 'Use',
         items: [
