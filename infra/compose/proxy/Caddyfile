@@ -1,0 +1,67 @@
+# Reverse proxy: the only thing published by the stack.
+#
+# It is an allow-list. A request that matches nothing below gets a 404, whatever Umami or the
+# gateway would have answered.
+#
+# - Ingestion goes to the gateway's public listener.
+# - Of Umami, only what a read-only dashboard needs is published: its pages, the /sso page and
+#   the routes the dashboard reads. The list was recorded from a browser session
+#   (tests/e2e/tests/sso.test.ts).
+#
+# Not published, on purpose:
+# - Umami's collection endpoints and tracker script (/api/send, /api/batch, /script.js): an event
+#   posted there would skip address truncation, and could name any address or user agent;
+# - Umami's sign-in (/login, /api/auth/login): only the console signs in, on the private network;
+# - /api/me/*: a signed-in user can create an API key there, which outlives a password rotation;
+# - every route that writes: no POST, PUT, PATCH or DELETE reaches Umami, except the token check.
+{
+	admin off
+	auto_https off
+}
+
+:8080 {
+	# No proxy is trusted in front of this one: Caddy replaces any X-Forwarded-For the caller
+	# sent with the address it sees, and the gateway reads that.
+
+	@ingest path /v1/metrics /v1/traces /v1/logs /v1/e /s/v0.js
+	handle @ingest {
+		reverse_proxy gateway:8080
+	}
+
+	@umami_pages {
+		method GET HEAD
+		path /sso /websites /websites/* /_next/* /intl/* /telemetry.js /favicon.ico /datamaps.world.json /iso-3166-2.json *.png *.svg *.webmanifest
+	}
+	handle @umami_pages {
+		reverse_proxy umami:3000
+	}
+
+	@umami_read {
+		method GET HEAD
+		path /api/websites/* /api/realtime/* /api/2fa/status
+	}
+	handle @umami_read {
+		reverse_proxy umami:3000
+	}
+
+	@umami_own_websites {
+		method GET HEAD
+		path_regexp ^/api/users/[0-9a-f-]{36}/websites$
+	}
+	handle @umami_own_websites {
+		reverse_proxy umami:3000
+	}
+
+	# The dashboard checks its token when it loads.
+	@umami_token_check {
+		method POST
+		path /api/auth/verify
+	}
+	handle @umami_token_check {
+		reverse_proxy umami:3000
+	}
+
+	handle {
+		respond "Not found" 404
+	}
+}

@@ -2,8 +2,8 @@
 #
 #   docker compose -f infra/compose/compose.yaml up -d --wait
 #
-# Only the gateway's public listener is published, on 127.0.0.1. PostgreSQL, Umami and the
-# Collector are reachable on the internal network only. compose.test.yaml adds what the stack
+# Only the reverse proxy is published, on 127.0.0.1. PostgreSQL, Umami, the Collector and the
+# gateway are reachable on the internal network only. compose.test.yaml adds what the stack
 # tests need to reach.
 #
 # Images are pinned by digest: the tag in the comment is what the digest was resolved from.
@@ -72,17 +72,30 @@ services:
       COLLECTOR_URLS: http://collector:4318
       UMAMI_URL: http://umami:3000
       TENANTS_FILE: /seed/tenants.json
+      # One proxy in front (the reverse proxy below): the client address is the last entry of
+      # X-Forwarded-For, the one that proxy wrote.
+      TRUSTED_PROXY_HOPS: "1"
     volumes:
       - ./seed:/seed:ro
-    ports:
-      # The public listener only. The private one (8081) stays on the internal network.
-      - "127.0.0.1:${GATEWAY_PORT:-8080}:8080"
     depends_on:
       postgres:
         condition: service_healthy
       collector:
         condition: service_started
     read_only: true
+
+  proxy:
+    # caddy:2-alpine
+    image: docker.io/library/caddy@sha256:003a97808e781aa9f7e75cc2f43d34d461099031faf5e20faefb9f61126836f0
+    volumes:
+      - ./proxy/Caddyfile:/etc/caddy/Caddyfile:ro
+    ports:
+      - "127.0.0.1:${PUBLIC_PORT:-8080}:8080"
+    depends_on:
+      gateway:
+        condition: service_healthy
+      umami:
+        condition: service_healthy
 
   # ─── Tenant side: what a project runs. Not part of Calistar. ───────────────────────────────
 

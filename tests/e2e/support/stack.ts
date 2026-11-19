@@ -8,7 +8,10 @@ import pg from "pg";
 
 const env = (name: string, fallback: string): string => process.env[name] || fallback;
 
-export const GATEWAY_URL = env("GATEWAY_URL", "http://127.0.0.1:8080");
+/** The reverse proxy: the only entry point the base stack publishes. */
+export const PROXY_URL = env("PROXY_URL", "http://127.0.0.1:8080");
+/** The gateway's public listener, reached directly: the test then stands in for the proxy. */
+export const GATEWAY_URL = env("GATEWAY_URL", "http://127.0.0.1:18080");
 export const UMAMI_URL = env("UMAMI_URL", "http://127.0.0.1:13000");
 export const EXAMPLE_SITE_URL = env("EXAMPLE_SITE_URL", "http://127.0.0.1:8091");
 export const EXAMPLE_API_URL = env("EXAMPLE_API_URL", "http://127.0.0.1:8090");
@@ -24,8 +27,8 @@ export const TOKEN_B = "calistar-poc-token-tenant-b";
 
 const COMPOSE_DIR = fileURLToPath(new URL("../../../infra/compose/", import.meta.url));
 const COMPOSE_FILES = ["-f", `${COMPOSE_DIR}compose.yaml`, "-f", `${COMPOSE_DIR}compose.test.yaml`];
-/** The four services that make up Calistar. The example site and API are the tenant's side. */
-export const CALISTAR_SERVICES = ["postgres", "collector", "umami", "gateway"];
+/** The services that make up Calistar. The example site and API are the tenant's side. */
+export const CALISTAR_SERVICES = ["postgres", "collector", "umami", "gateway", "proxy"];
 
 /** Runs `docker compose <args>` on the stack and returns its standard output. */
 export function compose(...args: string[]): string {

@@ -93,6 +93,7 @@ jobs:
       - name: Report
         if: always()
         run: |
+          echo "Hardware: $(nproc) CPUs, $(free -h | awk '/^Mem:/ {print $2}') memory, $(uname -sr)"
           {
             echo "### Short load run"
             echo

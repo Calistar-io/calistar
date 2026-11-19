@@ -12,7 +12,7 @@ apps/
 packages/
   normalizer/  Path normalization: Stellar keys, UUIDs, hashes and IDs become placeholders
 infra/
-  compose/     Local stack: PostgreSQL, Umami, the OpenTelemetry Collector, the gateway
+  compose/     Local stack: PostgreSQL, Umami, the OpenTelemetry Collector, the gateway, the reverse proxy
   collector/   Configuration of the OpenTelemetry Collector
 examples/
   otel-node/   Example API instrumented with the OpenTelemetry SDK
@@ -62,14 +62,15 @@ pnpm test
 docker compose -f infra/compose/compose.yaml -f infra/compose/compose.test.yaml up -d --wait --build
 ```
 
-This starts PostgreSQL, Umami 3.5.0, the OpenTelemetry Collector, the gateway, an example API and an example site. The second file publishes Umami and PostgreSQL on `127.0.0.1` for the tests; without it only the gateway is reachable.
+This starts PostgreSQL, Umami 3.5.0, the OpenTelemetry Collector, the gateway, a reverse proxy, an example API and an example site. The second file publishes the gateway, Umami and PostgreSQL on `127.0.0.1` for the tests; without it only the reverse proxy is reachable.
 
 | What | Where |
 | --- | --- |
-| Gateway, public listener | `http://127.0.0.1:8080` |
+| Reverse proxy: ingestion, and Umami's read-only dashboard | `http://127.0.0.1:8080` |
 | Example site | `http://127.0.0.1:8091` |
 | Example API | `http://127.0.0.1:8090` |
-| Umami (tests only) | `http://127.0.0.1:13000` |
+| Gateway, directly (tests only) | `http://127.0.0.1:18080` |
+| Umami, directly (tests only) | `http://127.0.0.1:13000` |
 | PostgreSQL (tests only) | `127.0.0.1:15432` |
 
 With Podman, use `podman compose` with the same arguments.
@@ -86,6 +87,7 @@ They check, on the running stack:
 - **API:** traces and logs sent to the endpoint leave nothing in either database or in the logs; a raw path is stored as a normalized route; a data point belongs to the token's tenant whatever the payload says; a cumulative stream is converted without double counting.
 - **Web:** a page view from a real browser is counted by Umami; the visitor's address, the query string, the page title and the language are stored nowhere; the page sets no cookie and writes no device storage.
 - **Single sign-on:** a provisioned view-only user opens its dashboard in Umami from a token, can read its website, cannot change it, and cannot read another tenant's.
+- **Reverse proxy:** ingestion and the dashboard work through it; Umami's collection endpoint, its tracker script, its sign-in and every route that writes are not reachable.
 
 ### 4. Try it by hand
 

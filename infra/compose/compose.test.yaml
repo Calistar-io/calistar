@@ -3,8 +3,9 @@
 #   docker compose -f infra/compose/compose.yaml -f infra/compose/compose.test.yaml up -d --wait
 #
 # It publishes, on 127.0.0.1 only, what the tests must reach and the base file keeps private:
-# Umami (provisioning and sign-in, as the console will do from the private network) and
-# PostgreSQL (to check what was stored).
+# Umami (provisioning and sign-in, as the console will do from the private network),
+# PostgreSQL (to check what was stored) and the gateway's public listener (so a test can stand in
+# for the reverse proxy and choose the address the gateway sees).
 
 services:
   postgres:
@@ -16,7 +17,5 @@ services:
       - "127.0.0.1:${UMAMI_TEST_PORT:-13000}:3000"
 
   gateway:
-    environment:
-      # Tests act as the one proxy in front of the gateway: the address they put last in
-      # X-Forwarded-For is taken as the client address. Without this the client is the TCP peer.
-      TRUSTED_PROXY_HOPS: "1"
+    ports:
+      - "127.0.0.1:${GATEWAY_TEST_PORT:-18080}:8080"
