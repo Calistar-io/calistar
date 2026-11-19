@@ -17,11 +17,6 @@ const scfEvidence = [
     description: "Dashboards, APIs, data pipelines, and open-source delivery.",
     href: "https://communityfund.stellar.org/submissions/recmK8tdxCKvSU3GS",
   },
-  {
-    title: "MUWPAY · SCF #35",
-    description: "Full-stack engineering contribution to an awarded Stellar SDK.",
-    href: "https://communityfund.stellar.org/submissions/recmvpMI0UZ6fy1ab",
-  },
 ];
 
 function Brand() {
@@ -201,7 +196,7 @@ export default function Home() {
               </a>
             ))}
             <p className="teamNote">
-              Lendwise SCF #45 and MUWPAY SCF #35 each completed all three grant tranches.
+              Lendwise SCF #45 completed all three grant tranches.
             </p>
           </div>
         </section>
