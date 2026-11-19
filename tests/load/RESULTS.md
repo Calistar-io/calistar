@@ -2,9 +2,11 @@
 
 Run of `tests/load/api-ingest.js`, followed by `tests/load/verify-counts.mjs`.
 
+Commit identifiers below are those of the current history. The run pages show an earlier identifier of the same commits: the same files, before the commit messages were edited.
+
 ## 2026-11-19, GitHub-hosted runner
 
-[Workflow run 44505024006](https://github.com/Calistar-io/calistar/actions/runs/44505024006), job "Short load run", commit `07aed8b`. The summary file is attached to the run as the artifact `load-run`.
+[Workflow run 44505024006](https://github.com/Calistar-io/calistar/actions/runs/44505024006), job "Short load run", commit `a0f7176`. The summary file is attached to the run as the artifact `load-run`.
 
 Requests went through the reverse proxy, as they would from outside: proxy, gateway, Collector, gateway, PostgreSQL.
 
@@ -31,6 +33,6 @@ Latency is what the exporter sees: the time for the proxy and the gateway to aut
 
 ## Earlier runs
 
-- [Run 44501975603](https://github.com/Calistar-io/calistar/actions/runs/44501975603), commit `7039a1a`, before the reverse proxy existed: requests went straight to the gateway. Same workload, 120,040 requests stored for 120,040 sent, latency median 2.2 ms, 99th percentile 4.9 ms.
-- [Run 44499702922](https://github.com/Calistar-io/calistar/actions/runs/44499702922): the load passed and the count check failed, because of a mistake in the script, which drew a different run identifier for every virtual user. Fixed in `7039a1a`.
+- [Run 44501975603](https://github.com/Calistar-io/calistar/actions/runs/44501975603), commit `efee494`, before the reverse proxy existed: requests went straight to the gateway. Same workload, 120,040 requests stored for 120,040 sent, latency median 2.2 ms, 99th percentile 4.9 ms.
+- [Run 44499702922](https://github.com/Calistar-io/calistar/actions/runs/44499702922): the load passed and the count check failed, because of a mistake in the script, which drew a different run identifier for every virtual user. Fixed in `efee494`.
 - A local attempt, on a 1.9 GiB virtual machine shared with other containers, ran out of memory before producing a result.
