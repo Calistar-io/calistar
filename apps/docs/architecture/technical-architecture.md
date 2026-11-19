@@ -525,7 +525,7 @@ The service is run by one maintainer without on-call, which the RFP allows. Comm
 | Critical/high vulnerabilities | Patched within 24 h | 24 h on business days; 72 h during announced absences | Automated scanning, automated update pull requests, one-command deployment, documented patch runbook |
 | Support | Response 5, resolution 10 business days | Response 5, resolution 10 business days | Public issue tracker with labels and tracked timers |
 
-- **Continuity.** A backup contact with emergency deploy access is named before production launch. Handover readiness (§9.5) is reached before the final tranche, so SCF can appoint another operator at any point in the service window.
+- **Continuity.** The maintainer is the only contact and the only person with deploy access. Handover readiness (§9.5) is reached before the final tranche, so SCF can appoint another operator at any point in the service window.
 - If measured ingestion availability holds at 99.99 % over the first three months, the commitment is raised.
 
 ### 9.4 Backups and recovery
@@ -574,5 +574,5 @@ Points the design relies on that are not established yet. Each has an owner in t
 | Collector failover | No double counting was shown on one Collector. Moving a stream between two replicas is not tested (§5.3) | Tranche 2, with the performance validation |
 | Compliance statements | The position on consent, per jurisdiction, has not been reviewed by counsel (§7.2) | Before production launch |
 | Upstream changes in Umami | Provisioning, single sign-on and the published route list were checked on v3.5.0 only (§5.5) | At each upgrade: the stack tests run against the new release first |
-| One maintainer | No second reviewer, no on-call (§7.4, §9.3) | Mitigated, not removed: automated controls, a backup contact, handover readiness before the final tranche |
+| One maintainer | No second reviewer, no on-call (§7.4, §9.3) | Mitigated, not removed: automated controls, stock components, handover readiness before the final tranche |
 | GoatCounter comparison | Two statements about GoatCounter come from its README and documentation only (§3.3) | Does not affect the design: the choice of Umami rests on the other criteria too |
