@@ -46,6 +46,7 @@ export const adminToken = (): Promise<string> => signIn(ADMIN.username, ADMIN.pa
 export const randomPassword = (): string => randomBytes(24).toString("base64url");
 
 export interface Tenant {
+  name: string;
   teamId: string;
   websiteId: string;
   userId: string;
@@ -69,7 +70,7 @@ export async function provisionTenant(admin: string, name: string, domain = "exa
   const password = randomPassword();
   const user = await expectOk("create user", await umami<{ id: string }>("POST", "/api/users", admin, { username, password, role: "view-only" }));
   await expectOk("add user to team", await umami("POST", `/api/teams/${team.id}/users`, admin, { userId: user.id, role: "team-view-only" }));
-  return { teamId: team.id, websiteId: website.id, userId: user.id, username, password };
+  return { name, teamId: team.id, websiteId: website.id, userId: user.id, username, password };
 }
 
 /** Creates a website that belongs to no team, for tests that only need somewhere to send events. */
