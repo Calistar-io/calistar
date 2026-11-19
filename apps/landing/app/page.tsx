@@ -16,6 +16,13 @@ const scfEvidence = [
     title: "Lendwise · SCF #45",
     description: "Dashboards, APIs, data pipelines, and open-source delivery.",
     href: "https://communityfund.stellar.org/submissions/recmK8tdxCKvSU3GS",
+    cta: "View awarded project",
+  },
+  {
+    title: "Lendwise · SCF Demo Day",
+    description: "Live presentation at the Demo Day SCF holds for awarded projects, November 2026.",
+    href: "https://www.youtube.com/watch?v=gm8-VwO75GM&t=1635s",
+    cta: "Watch the presentation",
   },
 ];
 
@@ -172,9 +179,10 @@ export default function Home() {
             <Eyebrow>Project lead & delivery evidence</Eyebrow>
             <h2>Built by a known<br />SCF contributor.</h2>
             <p>
-              <strong>Cédric Magne</strong> is a full-stack engineer with prior
-              Stellar Community Fund delivery experience. Calistar draws on work
-              across dashboards, APIs, data pipelines, and open-source delivery.
+              <strong>Cédric Magne</strong> is a full-stack engineer with 15 years
+              of experience: founder and lead developer of Lendwise (SCF #45), founder
+              of the open-source project Rness, and three years at Consensys on
+              Infura and MetaMask.
             </p>
             <div className="teamLinks">
               <a className="button buttonPrimary" href="https://github.com/cedricmagne" target="_blank" rel="noreferrer">
@@ -192,7 +200,7 @@ export default function Home() {
               <a className="evidenceCard" href={item.href} target="_blank" rel="noreferrer" key={item.title}>
                 <span>{item.title}</span>
                 <p>{item.description}</p>
-                <b>View awarded project ↗</b>
+                <b>{item.cta} ↗</b>
               </a>
             ))}
             <p className="teamNote">
