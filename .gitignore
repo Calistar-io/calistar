@@ -1,5 +1,11 @@
 node_modules
 .next
+.turbo
+*.tsbuildinfo
 .vercel
 .env*
 !.env.example
+.claude
+AGENTS.md
+CLAUDE.md
+.mcp.json

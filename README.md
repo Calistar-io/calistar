@@ -1,30 +1,29 @@
-# Calistar landing page
+# Calistar
 
-Next.js 16 App Router landing page. Static, no database, no environment variables.
+Privacy-first web and API analytics for Stellar ecosystem projects. Monorepo managed with [Turborepo](https://turborepo.dev) and pnpm workspaces.
 
-## Run locally
+## Layout
 
-```bash
-npm install
-npm run dev
+```text
+apps/
+  landing/     Landing page (Next.js 16)
+packages/      Shared packages (none yet)
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+## Requirements
 
-## Deploy on Vercel
+- Node.js 22 or later
+- pnpm 12 (`corepack enable` picks the version pinned in `package.json`)
 
-1. Push this folder to a new GitHub repository.
-2. In Vercel: **Add New → Project → Import** repository.
-3. Keep default framework preset: **Next.js**.
-4. Click **Deploy**.
-5. In project **Settings → Domains**, add `calistar.io` then `www.calistar.io`.
-6. Vercel shows exact DNS records. Add those records in OVH.
-7. In Vercel, set `calistar.io` as primary domain. Redirect `www` to apex.
+## Commands
 
-## DNS with OVH
+Run from the repository root:
 
-Keep OVH nameservers. Do not change nameservers unless moving every DNS record to Vercel.
+```bash
+pnpm install
+pnpm dev          # start every app in development mode
+pnpm build        # build every app
+pnpm typecheck    # type-check every workspace
+```
 
-Add domain in Vercel first. Then copy Vercel’s exact A/CNAME/TXT values into OVH’s DNS Zone. Common values can differ by Vercel project, so Vercel dashboard is source of truth.
-
-After propagation, Vercel automatically issues HTTPS certificate.
+To run one workspace only, add a filter: `pnpm dev --filter @calistar/landing`.
